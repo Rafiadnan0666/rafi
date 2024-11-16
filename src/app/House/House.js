@@ -10,15 +10,21 @@ import {
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
-import "./../page.css"; // Make sure your CSS reflects the Windows XP styles
+import "./../page.css"; // Ensure CSS aligns with Windows XP styles
 
 const house = () => {
+  // State hooks
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isProjectsOpen, setIsProjectsOpen] = useState(false);
   const [isSpotifyOpen, setIsSpotifyOpen] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
-  const [isSidebarVisible, setIsSidebarVisible] = useState(false); // Sidebar visibility state
+  const [isSidebarVisible, setIsSidebarVisible] = useState(false);
+
+  // Event handlers
+  const toggleFullScreen = () => setIsFullScreen((prev) => !prev);
+  const toggleMinimized = () => setIsMinimized((prev) => !prev);
+  const toggleSidebar = () => setIsSidebarVisible((prev) => !prev);
 
   const openProfileWindow = () => setIsProfileOpen(true);
   const closeProfileWindow = () => setIsProfileOpen(false);
@@ -26,19 +32,6 @@ const house = () => {
   const closeProjectsWindow = () => setIsProjectsOpen(false);
   const openSpotifyWindow = () => setIsSpotifyOpen(true);
   const closeSpotifyWindow = () => setIsSpotifyOpen(false);
-
-  const toggleFullScreen = () => {
-    setIsFullScreen((prev) => !prev);
-    setIsMinimized(false);
-  };
-
-  const toggleMinimized = () => {
-    setIsMinimized((prev) => !prev);
-  };
-
-  const toggleSidebar = () => {
-    setIsSidebarVisible((prev) => !prev);
-  };
 
   return (
     <div
@@ -52,42 +45,41 @@ const house = () => {
         backgroundPosition: "center",
         backgroundAttachment: "fixed",
         overflow: "hidden",
-        fontFamily: "'Tahoma', sans-serif", // Windows XP font
+        fontFamily: "'Tahoma', sans-serif", // Windows XP font style
       }}
     >
+      {/* Main content container */}
       <div
         style={{
           display: "flex",
           flexDirection: "row",
           flex: 1,
-          justifyContent: "flex-start",
           alignItems: "flex-start",
         }}
       >
-        {/* Sidebar with Start Button */}
+        {/* Sidebar */}
         {isSidebarVisible && (
           <div
             style={{
               width: "200px",
-              backgroundColor: "#2c2f8f", // Windows XP color
+              backgroundColor: "#2c2f8f", // Windows XP sidebar color
               color: "#fff",
               height: "100vh",
               padding: "20px",
               display: "flex",
               flexDirection: "column",
-              justifyContent: "flex-start",
               gap: "15px",
             }}
           >
             <div
               style={{
                 cursor: "pointer",
-                backgroundColor: "#1e1e6a", // Windows XP Start button color
+                backgroundColor: "#1e1e6a",
                 padding: "10px",
                 borderRadius: "5px",
                 textAlign: "center",
               }}
-              onClick={toggleSidebar} // Hide the sidebar when clicked
+              onClick={toggleSidebar}
             >
               <img
                 src="https://upload.wikimedia.org/wikipedia/commons/9/94/Unofficial_Windows_logo_variant_-_2002%E2%80%932012_(Multicolored).svg"
@@ -96,48 +88,49 @@ const house = () => {
               />
               <Typography>Start</Typography>
             </div>
-            <div>
-              <Button
-                onClick={openProfileWindow}
-                style={{
-                  width: "100%",
-                  marginBottom: "10px",
-                  color: "#fff",
-                  backgroundColor: "#1e1e6a", // XP button color
-                  fontWeight: "bold",
-                }}
-              >
-                My Profile
-              </Button>
-              <Button
-                onClick={openProjectsWindow}
-                style={{
-                  width: "100%",
-                  marginBottom: "10px",
-                  color: "#fff",
-                  backgroundColor: "#1e1e6a",
-                  fontWeight: "bold",
-                }}
-              >
-                Projects
-              </Button>
-              <Button
-                onClick={openSpotifyWindow}
-                style={{
-                  width: "100%",
-                  marginBottom: "10px",
-                  color: "#fff",
-                  backgroundColor: "#1e1e6a",
-                  fontWeight: "bold",
-                }}
-              >
-                Spotify
-              </Button>
-            </div>
+            <Button
+              onClick={openProfileWindow}
+              style={{
+                width: "100%",
+                marginBottom: "10px",
+                color: "#fff",
+                backgroundColor: "#1e1e6a",
+                fontWeight: "bold",
+                borderRadius: "5px",
+              }}
+            >
+              My Profile
+            </Button>
+            <Button
+              onClick={openProjectsWindow}
+              style={{
+                width: "100%",
+                marginBottom: "10px",
+                color: "#fff",
+                backgroundColor: "#1e1e6a",
+                fontWeight: "bold",
+                borderRadius: "5px",
+              }}
+            >
+              Projects
+            </Button>
+            <Button
+              onClick={openSpotifyWindow}
+              style={{
+                width: "100%",
+                marginBottom: "10px",
+                color: "#fff",
+                backgroundColor: "#1e1e6a",
+                fontWeight: "bold",
+                borderRadius: "5px",
+              }}
+            >
+              Spotify
+            </Button>
           </div>
         )}
 
-        {/* Content Area */}
+        {/* Main workspace */}
         <div
           style={{
             flex: 1,
@@ -168,11 +161,11 @@ const house = () => {
         </div>
       </div>
 
-      {/* Taskbar (Start Button and running apps) */}
+      {/* Taskbar */}
       <div
         className="taskbar"
         style={{
-          backgroundColor: "#2c2f8f", // Classic Windows XP taskbar color
+          backgroundColor: "#2c2f8f", // Windows XP taskbar color
           color: "#fff",
           height: "40px",
           display: "flex",
@@ -180,17 +173,10 @@ const house = () => {
           padding: "0 10px",
         }}
       >
-        <div
-          className="start-button"
-          style={{ padding: "5px", cursor: "pointer" }}
-          onClick={toggleSidebar} // Toggle sidebar visibility
-        >
+        <div className="start-button" style={{ padding: "5px", cursor: "pointer" }} onClick={toggleSidebar}>
           <Typography>Start</Typography>
         </div>
-        <div
-          className="taskbar-buttons"
-          style={{ flexGrow: 1, display: "flex", gap: "10px" }}
-        >
+        <div className="taskbar-buttons" style={{ flexGrow: 1, display: "flex", gap: "10px" }}>
           <Button onClick={openProfileWindow}>My Profile</Button>
           <Button onClick={openProjectsWindow}>Projects</Button>
           <Button onClick={openSpotifyWindow}>Spotify</Button>
@@ -199,43 +185,46 @@ const house = () => {
 
       {/* Profile Modal */}
       <Modal open={isProfileOpen} onClose={closeProfileWindow}>
-        <div className={`modal-content ${isFullScreen ? "fullscreen" : ""}`}>
-          <div className="modal-content-header bg-slate-600 min-h-12">
-            <Button onClick={closeProfileWindow} style={{ color: "red" }}>
-              <FontAwesomeIcon icon={faTimes} />
-            </Button>
-            <div>
-              <Button onClick={toggleMinimized} style={{ color: "gray" }} />
-              <Button onClick={toggleFullScreen} style={{ color: "gray" }}>
-                <FontAwesomeIcon
-                  icon={isFullScreen ? faWindowRestore : faWindowMaximize}
-                />
+        <div
+          style={{
+            backgroundColor: "#fff",
+            width: "400px",
+            margin: "100px auto",
+            borderRadius: "8px",
+            boxShadow: "0 0 10px rgba(0,0,0,0.5)",
+          }}
+        >
+          <div
+            style={{
+              background: "linear-gradient(to right, #5b5b5b, #1e1e6a)",
+              color: "#fff",
+              display: "flex",
+              justifyContent: "space-between",
+              padding: "10px",
+              borderTopLeftRadius: "8px",
+              borderTopRightRadius: "8px",
+            }}
+          >
+            <div style={{ display: "flex", gap: "5px" }}>
+              <Button onClick={closeProfileWindow} style={{ color: "#fff" }}>
+                <FontAwesomeIcon icon={faTimes} />
+              </Button>
+              <Button onClick={toggleMinimized} style={{ color: "#fff" }}>
+                <FontAwesomeIcon icon={faMinus} />
+              </Button>
+              <Button onClick={toggleFullScreen} style={{ color: "#fff" }}>
+                <FontAwesomeIcon icon={isFullScreen ? faWindowRestore : faWindowMaximize} />
               </Button>
             </div>
           </div>
           {!isMinimized && (
             <>
-              <Typography variant="h4">My Profile</Typography>
-              <Typography variant="body2" style={{ marginTop: "20px" }}>
-                Name: Rafi Adnan
+              <Typography variant="h6" style={{ margin: "20px" }}>My Profile</Typography>
+              <Typography style={{ marginLeft: "20px" }}>Name: Rafi Adnan</Typography>
+              <Typography style={{ marginLeft: "20px" }}>Email: fn234561@gmail.com</Typography>
+              <Typography style={{ marginLeft: "20px", marginTop: "10px" }}>
+                About: Web Developer | Game Developer
               </Typography>
-              <Typography variant="body2" style={{ marginTop: "10px" }}>
-                Email: fn234561@gmail.com
-              </Typography>
-              <Typography variant="body2" style={{ marginTop: "10px" }}>
-                I am passionate about web and game development, and I have experience
-                working with Unity, Laravel, and other technologies.
-              </Typography>
-              <Typography variant="body2" style={{ marginTop: "10px" }}>
-                I enjoy creating immersive gaming experiences and have expertise in
-                multiplayer functionality, AI, and game mechanics.
-              </Typography>
-              <Button
-                onClick={closeProfileWindow}
-                style={{ marginTop: "20px" }}
-              >
-                Close
-              </Button>
             </>
           )}
         </div>
@@ -243,98 +232,99 @@ const house = () => {
 
       {/* Projects Modal */}
       <Modal open={isProjectsOpen} onClose={closeProjectsWindow}>
-        <div className={`modal-content ${isFullScreen ? "fullscreen" : ""}`}>
-          <div className="modal-content-header bg-slate-600 min-h-12">
-            <Button onClick={closeProjectsWindow} style={{ color: "red" }}>
-              <FontAwesomeIcon icon={faTimes} />
-            </Button>
-            <div>
-              <Button onClick={toggleMinimized} style={{ color: "gray" }} />
-              <Button onClick={toggleFullScreen} style={{ color: "gray" }}>
-                <FontAwesomeIcon
-                  icon={isFullScreen ? faWindowRestore : faWindowMaximize}
-                />
+        <div
+          style={{
+            backgroundColor: "#121212",
+            width: isFullScreen ? "100vw" : "70vw",
+            height: isFullScreen ? "100vh" : "auto",
+            margin: "auto",
+            borderRadius: "15px",
+            boxShadow: "0 0 20px rgba(255, 255, 255, 0.2)",
+            color: "#fff",
+            fontFamily: "'Roboto', sans-serif",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+          }}
+        >
+          <div
+            style={{
+              background: "linear-gradient(to right, #ff7f50, #ff1493)",
+              display: "flex",
+              justifyContent: "space-between",
+              padding: "15px",
+              borderTopLeftRadius: "15px",
+              borderTopRightRadius: "15px",
+            }}
+          >
+            <div style={{ display: "flex", gap: "5px" }}>
+              <Button onClick={closeProjectsWindow} style={{ color: "#fff" }}>
+                <FontAwesomeIcon icon={faTimes} />
+              </Button>
+              <Button onClick={toggleMinimized} style={{ color: "#fff" }}>
+                <FontAwesomeIcon icon={faMinus} />
+              </Button>
+              <Button onClick={toggleFullScreen} style={{ color: "#fff" }}>
+                <FontAwesomeIcon icon={isFullScreen ? faWindowRestore : faWindowMaximize} />
               </Button>
             </div>
           </div>
           {!isMinimized && (
-            <>
-              <Typography variant="h4" style={{ marginTop: "20px" }}>
-                Projects
+            <CardContent>
+              <Typography variant="h4" style={{ marginBottom: "20px" }}>
+                My Projects
               </Typography>
-              <div
-                style={{
-                  display: "flex",
-                  flexWrap: "wrap",
-                  gap: "20px",
-                  justifyContent: "center",
-                  marginTop: "20px",
-                }}
-              >
-                <Card style={{ width: "200px" }}>
-                  <CardContent>
-                    <Typography variant="h6">Farkour</Typography>
-                    <Typography variant="body2">
-                      A multiplayer parkour FPS featuring katanas as the only weapon.
-                    </Typography>
-                  </CardContent>
-                </Card>
-                <Card style={{ width: "200px" }}>
-                  <CardContent>
-                    <Typography variant="h6">Seek the Light</Typography>
-                    <Typography variant="body2">
-                      A horror-action game with parkour mechanics and an inventory system.
-                    </Typography>
-                  </CardContent>
-                </Card>
-                <Card style={{ width: "200px" }}>
-                  <CardContent>
-                    <Typography variant="h6">Kopi Jawara</Typography>
-                    <Typography variant="body2">
-                      A project focusing on Arabica and Robusta coffee from Banten.
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </div>
-              <Button onClick={closeProjectsWindow} style={{ marginTop: "20px" }}>
-                Close
-              </Button>
-            </>
+              <Typography>1. Farkour - Multiplayer Parkour FPS</Typography>
+              <Typography>2. Seek the Light - Action-Horror with Parkour Mechanics</Typography>
+            </CardContent>
           )}
         </div>
       </Modal>
 
       {/* Spotify Modal */}
       <Modal open={isSpotifyOpen} onClose={closeSpotifyWindow}>
-        <div className={`modal-content ${isFullScreen ? "fullscreen" : ""}`}>
-          <div className="modal-content-header bg-slate-600 min-h-12">
-            <Button onClick={closeSpotifyWindow} style={{ color: "red" }}>
-              <FontAwesomeIcon icon={faTimes} />
-            </Button>
-            <div>
-              <Button onClick={toggleMinimized} style={{ color: "gray" }} />
-              <Button onClick={toggleFullScreen} style={{ color: "gray" }}>
-                <FontAwesomeIcon
-                  icon={isFullScreen ? faWindowRestore : faWindowMaximize}
-                />
+        <div
+          style={{
+            backgroundColor: "#1db954",
+            width: "60vw",
+            height: "40vh",
+            margin: "100px auto",
+            borderRadius: "15px",
+            boxShadow: "0 0 15px rgba(0,0,0,0.4)",
+            color: "#fff",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <div
+            style={{
+              backgroundColor: "#333",
+              padding: "10px",
+              borderTopLeftRadius: "15px",
+              borderTopRightRadius: "15px",
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
+            <div style={{ display: "flex", gap: "5px" }}>
+              <Button onClick={closeSpotifyWindow} style={{ color: "#fff" }}>
+                <FontAwesomeIcon icon={faTimes} />
+              </Button>
+              <Button onClick={toggleMinimized} style={{ color: "#fff" }}>
+                <FontAwesomeIcon icon={faMinus} />
+              </Button>
+              <Button onClick={toggleFullScreen} style={{ color: "#fff" }}>
+                <FontAwesomeIcon icon={isFullScreen ? faWindowRestore : faWindowMaximize} />
               </Button>
             </div>
           </div>
           {!isMinimized && (
-            <>
-              <Typography variant="h4" style={{ marginTop: "20px" }}>
-                Spotify
-              </Typography>
-              <Typography variant="body2" style={{ marginTop: "10px" }}>
-                Embed Spotify player here!
-              </Typography>
-              <Button
-                onClick={closeSpotifyWindow}
-                style={{ marginTop: "20px" }}
-              >
-                Close
-              </Button>
-            </>
+            <div style={{ padding: "15px" }}>
+              <Typography variant="h5">Spotify</Typography>
+              <Link href="https://open.spotify.com/" target="_blank" style={{ color: "#fff" }}>
+                Open Spotify
+              </Link>
+            </div>
           )}
         </div>
       </Modal>
