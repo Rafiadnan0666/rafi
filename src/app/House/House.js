@@ -12,7 +12,7 @@ import {
 import Link from "next/link";
 import "./../page.css"; // Ensure CSS aligns with Windows XP styles
 
-const house = () => {
+const House = () => {
   // State hooks
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isProjectsOpen, setIsProjectsOpen] = useState(false);
@@ -82,7 +82,7 @@ const house = () => {
               onClick={toggleSidebar}
             >
               <img
-                src="https://upload.wikimedia.org/wikipedia/commons/9/94/Unofficial_Windows_logo_variant_-_2002%E2%80%932012_(Multicolored).svg"
+                src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.PusjT4SjfvaJ6t5YcHbLawHaHa%26pid%3DApi&f=1&ipt=8622ea1cb90b10d96a066605811e326e27fb12cd021764e42bcf4f66a67034d3&ipo=images"
                 alt="Windows XP Logo"
                 style={{ width: "30px", marginBottom: "5px" }}
               />
@@ -249,10 +249,11 @@ const house = () => {
         >
           <div
             style={{
-              background: "linear-gradient(to right, #ff7f50, #ff1493)",
+              background: "linear-gradient(to right, #ff7f50, #ff6347)",
+              color: "#fff",
               display: "flex",
               justifyContent: "space-between",
-              padding: "15px",
+              padding: "10px",
               borderTopLeftRadius: "15px",
               borderTopRightRadius: "15px",
             }}
@@ -269,15 +270,18 @@ const house = () => {
               </Button>
             </div>
           </div>
-          {!isMinimized && (
+          <Card style={{ backgroundColor: "#2c2f8f", color: "#fff", marginTop: "20px", borderRadius: "10px" }}>
             <CardContent>
-              <Typography variant="h4" style={{ marginBottom: "20px" }}>
-                My Projects
-              </Typography>
-              <Typography>1. Farkour - Multiplayer Parkour FPS</Typography>
-              <Typography>2. Seek the Light - Action-Horror with Parkour Mechanics</Typography>
+              <Typography variant="h6">Project 1: Game Development</Typography>
+              <Typography>Details about the game development project</Typography>
             </CardContent>
-          )}
+          </Card>
+          <Card style={{ backgroundColor: "#2c2f8f", color: "#fff", marginTop: "10px", borderRadius: "10px" }}>
+            <CardContent>
+              <Typography variant="h6">Project 2: Web Development</Typography>
+              <Typography>Details about the web development project</Typography>
+            </CardContent>
+          </Card>
         </div>
       </Modal>
 
@@ -286,50 +290,21 @@ const house = () => {
         <div
           style={{
             backgroundColor: "#1db954",
-            width: "60vw",
-            height: "40vh",
+            width: "70vw",
+            height: "auto",
             margin: "100px auto",
             borderRadius: "15px",
-            boxShadow: "0 0 15px rgba(0,0,0,0.4)",
+            boxShadow: "0 0 20px rgba(0, 0, 0, 0.5)",
             color: "#fff",
-            display: "flex",
-            flexDirection: "column",
+            padding: "20px",
           }}
         >
-          <div
-            style={{
-              backgroundColor: "#333",
-              padding: "10px",
-              borderTopLeftRadius: "15px",
-              borderTopRightRadius: "15px",
-              display: "flex",
-              justifyContent: "space-between",
-            }}
-          >
-            <div style={{ display: "flex", gap: "5px" }}>
-              <Button onClick={closeSpotifyWindow} style={{ color: "#fff" }}>
-                <FontAwesomeIcon icon={faTimes} />
-              </Button>
-              <Button onClick={toggleMinimized} style={{ color: "#fff" }}>
-                <FontAwesomeIcon icon={faMinus} />
-              </Button>
-              <Button onClick={toggleFullScreen} style={{ color: "#fff" }}>
-                <FontAwesomeIcon icon={isFullScreen ? faWindowRestore : faWindowMaximize} />
-              </Button>
-            </div>
-          </div>
-          {!isMinimized && (
-            <div style={{ padding: "15px" }}>
-              <Typography variant="h5">Spotify</Typography>
-              <Link href="https://open.spotify.com/" target="_blank" style={{ color: "#fff" }}>
-                Open Spotify
-              </Link>
-            </div>
-          )}
+          <Typography variant="h6">Spotify Playlist</Typography>
+          <Typography>Currently playing: Your favorite music!</Typography>
         </div>
       </Modal>
     </div>
   );
 };
 
-export default house;
+export default House;
