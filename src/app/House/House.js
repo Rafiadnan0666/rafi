@@ -1,7 +1,14 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 "use client";
+
 import { useState } from "react";
-import { Button, Box, Modal, Typography, Card, CardContent } from "@mui/material";
+import {
+  Button,
+  Box,
+  Modal,
+  Typography,
+  Card,
+  CardContent,
+} from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMinus,
@@ -32,6 +39,25 @@ const House = () => {
   const closeProjectsWindow = () => setIsProjectsOpen(false);
   const openSpotifyWindow = () => setIsSpotifyOpen(true);
   const closeSpotifyWindow = () => setIsSpotifyOpen(false);
+  const playlistId = "4tI4bWB5cKvlVEAypIpnn8";
+  const [selectedProject, setSelectedProject] = useState(null);
+
+  const projects = [
+    {
+      title: "Artifact Fetching For Dummies",
+      description: "You’re a highly trained agent (well, kinda) sent on a mission to steal the galaxy’s most powerful relic: The Artifact. What could go wrong? Oh, just everything. Sneak through a top-secret facility filled with traps, drones, and questionable design choices, all while listening to your boss bark orders over a dodgy intercom. Grab the shiny thing, try not to break it (spoiler: you probably will), and make a mad dash for the exit before the facility turns into your personal barbecue pit. Are you smart enough to survive? Probably not. But hey, it’s worth a shot.",
+      image: "https://img.itch.zone/aW1nLzE4Nzk0Njg5LnBuZw==/original/FsHEyg.png",
+      id: 1,
+      link: "https://gregrsea-975.itch.io/artifact-fetching-for-dummies",
+    },
+    {
+      title: "Landing Page JawaraDM",
+      description: "Landing Page JawaraDM",
+      image: "https://jawaradm.com/",
+      id: 2,
+      link: "https://jawaradm.com/",
+    },
+  ];
 
   return (
     <div
@@ -173,10 +199,17 @@ const House = () => {
           padding: "0 10px",
         }}
       >
-        <div className="start-button" style={{ padding: "5px", cursor: "pointer" }} onClick={toggleSidebar}>
+        <div
+          className="start-button"
+          style={{ padding: "5px", cursor: "pointer" }}
+          onClick={toggleSidebar}
+        >
           <Typography>Start</Typography>
         </div>
-        <div className="taskbar-buttons" style={{ flexGrow: 1, display: "flex", gap: "10px" }}>
+        <div
+          className="taskbar-buttons"
+          style={{ flexGrow: 1, display: "flex", gap: "10px" }}
+        >
           <Button onClick={openProfileWindow}>My Profile</Button>
           <Button onClick={openProjectsWindow}>Projects</Button>
           <Button onClick={openSpotifyWindow}>Spotify</Button>
@@ -213,20 +246,22 @@ const House = () => {
                 <FontAwesomeIcon icon={faMinus} />
               </Button>
               <Button onClick={toggleFullScreen} style={{ color: "#fff" }}>
-                <FontAwesomeIcon icon={isFullScreen ? faWindowRestore : faWindowMaximize} />
+                <FontAwesomeIcon
+                  icon={isFullScreen ? faWindowRestore : faWindowMaximize}
+                />
               </Button>
             </div>
+            <Typography>My Profile</Typography>
           </div>
-          {!isMinimized && (
-            <>
-              <Typography variant="h6" style={{ margin: "20px" }}>My Profile</Typography>
-              <Typography style={{ marginLeft: "20px" }}>Name: Rafi Adnan</Typography>
-              <Typography style={{ marginLeft: "20px" }}>Email: fn234561@gmail.com</Typography>
-              <Typography style={{ marginLeft: "20px", marginTop: "10px" }}>
-                About: Web Developer | Game Developer
+          <Card>
+            <CardContent>
+              <Typography variant="h5">Rafi adnan</Typography>
+              <Typography variant="body1" paragraph>
+                Full-stack developer, web enthusiast, and digital problem solver
+                passionate about creating modern, intuitive digital experiences.
               </Typography>
-            </>
-          )}
+            </CardContent>
+          </Card>
         </div>
       </Modal>
 
@@ -234,28 +269,22 @@ const House = () => {
       <Modal open={isProjectsOpen} onClose={closeProjectsWindow}>
         <div
           style={{
-            backgroundColor: "#121212",
-            width: isFullScreen ? "100vw" : "70vw",
-            height: isFullScreen ? "100vh" : "auto",
-            margin: "auto",
-            borderRadius: "15px",
-            boxShadow: "0 0 20px rgba(255, 255, 255, 0.2)",
-            color: "#fff",
-            fontFamily: "'Roboto', sans-serif",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between",
+            backgroundColor: "#fff",
+            width: "400px",
+            margin: "100px auto",
+            borderRadius: "8px",
+            boxShadow: "0 0 10px rgba(0,0,0,0.5)",
           }}
         >
           <div
             style={{
-              background: "linear-gradient(to right, #ff7f50, #ff6347)",
+              background: "linear-gradient(to right, #5b5b5b, #1e1e6a)",
               color: "#fff",
               display: "flex",
               justifyContent: "space-between",
               padding: "10px",
-              borderTopLeftRadius: "15px",
-              borderTopRightRadius: "15px",
+              borderTopLeftRadius: "8px",
+              borderTopRightRadius: "8px",
             }}
           >
             <div style={{ display: "flex", gap: "5px" }}>
@@ -266,22 +295,42 @@ const House = () => {
                 <FontAwesomeIcon icon={faMinus} />
               </Button>
               <Button onClick={toggleFullScreen} style={{ color: "#fff" }}>
-                <FontAwesomeIcon icon={isFullScreen ? faWindowRestore : faWindowMaximize} />
+                <FontAwesomeIcon
+                  icon={isFullScreen ? faWindowRestore : faWindowMaximize}
+                />
               </Button>
             </div>
+            <Typography>Projects</Typography>
           </div>
-          <Card style={{ backgroundColor: "#2c2f8f", color: "#fff", marginTop: "20px", borderRadius: "10px" }}>
-            <CardContent>
-              <Typography variant="h6">Project 1: Game Development</Typography>
-              <Typography>Details about the game development project</Typography>
-            </CardContent>
-          </Card>
-          <Card style={{ backgroundColor: "#2c2f8f", color: "#fff", marginTop: "10px", borderRadius: "10px" }}>
-            <CardContent>
-              <Typography variant="h6">Project 2: Web Development</Typography>
-              <Typography>Details about the web development project</Typography>
-            </CardContent>
-          </Card>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              padding: "10px",
+            }}
+          >
+            {projects.map((project) => (
+              <Card key={project.id} style={{ marginBottom: "10px" }}>
+                <CardContent>
+                  <Typography variant="h6">{project.title}</Typography>
+                  <Typography variant="body2" paragraph>
+                    {project.description}
+                  </Typography>
+                  <Link
+                    href={project.link}
+                    target="_blank"
+                    style={{
+                      color: "#1e1e6a",
+                      textDecoration: "none",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    View Project
+                  </Link>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
       </Modal>
 
@@ -289,18 +338,46 @@ const House = () => {
       <Modal open={isSpotifyOpen} onClose={closeSpotifyWindow}>
         <div
           style={{
-            backgroundColor: "#1db954",
-            width: "70vw",
-            height: "auto",
+            backgroundColor: "#fff",
+            width: "400px",
             margin: "100px auto",
-            borderRadius: "15px",
-            boxShadow: "0 0 20px rgba(0, 0, 0, 0.5)",
-            color: "#fff",
-            padding: "20px",
+            borderRadius: "8px",
+            boxShadow: "0 0 10px rgba(0,0,0,0.5)",
           }}
         >
-          <Typography variant="h6">Spotify Playlist</Typography>
-          <Typography>Currently playing: Your favorite music!</Typography>
+          <div
+            style={{
+              background: "linear-gradient(to right, #5b5b5b, #1e1e6a)",
+              color: "#fff",
+              display: "flex",
+              justifyContent: "space-between",
+              padding: "10px",
+              borderTopLeftRadius: "8px",
+              borderTopRightRadius: "8px",
+            }}
+          >
+            <div style={{ display: "flex", gap: "5px" }}>
+              <Button onClick={closeSpotifyWindow} style={{ color: "#fff" }}>
+                <FontAwesomeIcon icon={faTimes} />
+              </Button>
+              <Button onClick={toggleMinimized} style={{ color: "#fff" }}>
+                <FontAwesomeIcon icon={faMinus} />
+              </Button>
+              <Button onClick={toggleFullScreen} style={{ color: "#fff" }}>
+                <FontAwesomeIcon
+                  icon={isFullScreen ? faWindowRestore : faWindowMaximize}
+                />
+              </Button>
+            </div>
+            <Typography>Spotify</Typography>
+          </div>
+          <iframe
+            src={`https://open.spotify.com/embed/playlist/${playlistId}`}
+            width="100%"
+            height="380"
+            frameBorder="0"
+            allow="encrypted-media"
+          ></iframe>
         </div>
       </Modal>
     </div>
