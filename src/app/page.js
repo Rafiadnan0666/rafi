@@ -10,12 +10,14 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import House from "./House/House.js";
 import Projects from "./Projects/page.js";
+import { Analytics } from "@vercel/analytics/react"
 
 export default function Home() {
   return (
     <div>
       <House />
       <Projects />
+      <Analytics />
     </div>
   );
 }
