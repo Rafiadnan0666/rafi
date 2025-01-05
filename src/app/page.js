@@ -15,6 +15,9 @@ import { Analytics } from "@vercel/analytics/react"
 export default function Home() {
   return (
     <div>
+      <title>Rafi Adnan Portoflio</title>
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4320225638717558"
+     crossorigin="anonymous"></script>
       <House />
       <Projects />
       <Analytics />
