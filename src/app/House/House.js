@@ -10,6 +10,7 @@ import {
   CardContent,
 } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import {
   faMinus,
   faWindowMaximize,
