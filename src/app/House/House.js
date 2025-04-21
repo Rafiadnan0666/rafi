@@ -81,7 +81,7 @@ const PortXFolio = () => {
             break;
         }
 
-        // Check collision with walls
+      
         if (
           head.x < 0 ||
           head.x >= 20 ||
@@ -92,7 +92,7 @@ const PortXFolio = () => {
           return prevSnake;
         }
 
-        // Check collision with self
+      
         if (prevSnake.some(segment => segment.x === head.x && segment.y === head.y)) {
           setGameOver(true);
           return prevSnake;
@@ -144,12 +144,12 @@ const PortXFolio = () => {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [direction, windows.snake.open]);
 
-  // Initialize Minesweeper
+
   const initializeMinesweeper = () => {
     const grid = Array(10).fill().map(() => Array(10).fill(0));
     let mines = 15;
 
-    // Place mines
+
     while (mines > 0) {
       const x = Math.floor(Math.random() * 10);
       const y = Math.floor(Math.random() * 10);
@@ -160,7 +160,6 @@ const PortXFolio = () => {
       }
     }
 
-    // Calculate numbers
     for (let y = 0; y < 10; y++) {
       for (let x = 0; x < 10; x++) {
         if (grid[y][x] === "M") continue;
@@ -256,7 +255,7 @@ const PortXFolio = () => {
     // Simulate AI response
     setTimeout(() => {
       const responses = [
-        "Im an AI assistant in this Windows XP portfolio. How can I help you?",
+        "I'm an AI assistant in this Windows XP portfolio. How can I help you?",
         "Rafi is a full-stack developer with expertise in React, Laravel, and Unity.",
         "Check out the Games section for some nostalgic Windows XP-style games!",
         "This portfolio showcases innovative web technologies and interactive elements.",
@@ -346,7 +345,7 @@ const PortXFolio = () => {
     },
     {
       title: "Starfall (WIP)",
-      description: "Sci-fi roguelike shooter inspired by Risk of Rain 2 and No Mans Sky.",
+      description: "Sci-fi roguelike shooter inspired by Risk of Rain 2 and No Man's Sky.",
       image: "https://via.placeholder.com/300x200?text=Starfall+Game",
       link: "#",
     },
@@ -793,7 +792,7 @@ const PortXFolio = () => {
                   type="text"
                   value={userMessage}
                   onChange={(e) => setUserMessage(e.target.value)}
-                  placeholder="Ask me about Rafis skills or projects..."
+                  placeholder="Ask me about Rafi's skills or projects..."
                 />
                 <button type="submit" disabled={isThinking}>
                   {isThinking ? "Thinking..." : "Send"}
@@ -839,7 +838,7 @@ const PortXFolio = () => {
               className="spotify-embed"
             ></iframe>
             <div className="spotify-info">
-              <h3>Rafis Coding Playlist</h3>
+              <h3>Rafi Coding Playlist</h3>
               <p>A mix of electronic and ambient tracks for focused development sessions.</p>
             </div>
           </div>
@@ -881,7 +880,7 @@ const PortXFolio = () => {
           ))}
         </div>
         <div className="clock">
-          {time.toLocaleTimeString([], { hour: 2-digit, minute: 2-digit })}
+          {time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
           <br />
           {time.toLocaleDateString()}
         </div>
