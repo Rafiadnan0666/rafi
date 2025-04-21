@@ -256,7 +256,7 @@ const PortXFolio = () => {
     // Simulate AI response
     setTimeout(() => {
       const responses = [
-        "I'm an AI assistant in this Windows XP portfolio. How can I help you?",
+        "Im an AI assistant in this Windows XP portfolio. How can I help you?",
         "Rafi is a full-stack developer with expertise in React, Laravel, and Unity.",
         "Check out the Games section for some nostalgic Windows XP-style games!",
         "This portfolio showcases innovative web technologies and interactive elements.",
@@ -346,7 +346,7 @@ const PortXFolio = () => {
     },
     {
       title: "Starfall (WIP)",
-      description: "Sci-fi roguelike shooter inspired by Risk of Rain 2 and No Man's Sky.",
+      description: "Sci-fi roguelike shooter inspired by Risk of Rain 2 and No Mans Sky.",
       image: "https://via.placeholder.com/300x200?text=Starfall+Game",
       link: "#",
     },
@@ -426,11 +426,11 @@ const PortXFolio = () => {
           </div>
           <div className="window-content">
             <div className="profile-content">
-              {/* <img 
-                // src="https://via.placeholder.com/150" 
+              <img 
+                src="https://via.placeholder.com/150" 
                 alt="Profile" 
                 className="profile-pic"
-              /> */}
+              />
               <div>
                 <h2>Rafi Adnan</h2>
                 <p>Full-stack developer | Game Developer | Creative Technologist</p>
@@ -448,8 +448,8 @@ const PortXFolio = () => {
                 <div className="bio-section">
                   <h3>About Me:</h3>
                   <p>
-                    I'm a passionate developer from Indonesia who builds immersive digital experiences. 
-                    Whether it's a sleek web application or an engaging game, I focus on creating 
+                    Im a passionate developer from Indonesia who builds immersive digital experiences. 
+                    Whether its a sleek web application or an engaging game, I focus on creating 
                     intuitive, responsive, and memorable interactions.
                   </p>
                 </div>
@@ -793,7 +793,7 @@ const PortXFolio = () => {
                   type="text"
                   value={userMessage}
                   onChange={(e) => setUserMessage(e.target.value)}
-                  placeholder="Ask me about Rafi's skills or projects..."
+                  placeholder="Ask me about Rafis skills or projects..."
                 />
                 <button type="submit" disabled={isThinking}>
                   {isThinking ? "Thinking..." : "Send"}
@@ -839,7 +839,7 @@ const PortXFolio = () => {
               className="spotify-embed"
             ></iframe>
             <div className="spotify-info">
-              <h3>Rafi's Coding Playlist</h3>
+              <h3>Rafis Coding Playlist</h3>
               <p>A mix of electronic and ambient tracks for focused development sessions.</p>
             </div>
           </div>
@@ -881,7 +881,7 @@ const PortXFolio = () => {
           ))}
         </div>
         <div className="clock">
-          {time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+          {time.toLocaleTimeString([], { hour: 2-digit, minute: 2-digit })}
           <br />
           {time.toLocaleDateString()}
         </div>
