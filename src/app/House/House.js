@@ -426,11 +426,11 @@ const PortXFolio = () => {
           </div>
           <div className="window-content">
             <div className="profile-content">
-              <img 
-                src="https://via.placeholder.com/150" 
+              {/* <img 
+                // src="https://via.placeholder.com/150" 
                 alt="Profile" 
                 className="profile-pic"
-              />
+              /> */}
               <div>
                 <h2>Rafi Adnan</h2>
                 <p>Full-stack developer | Game Developer | Creative Technologist</p>
