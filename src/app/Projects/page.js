@@ -5,7 +5,7 @@ export default class Projects extends Component {
   render() {
     return (
       <div>
-        <h1>sgjssgshgsjhgjkdhjghs</h1>
+        {/* <h1>sgjssgshgsjhgjkdhjghs</h1> */}
       </div>
     )
   }
