@@ -10,7 +10,7 @@ import Head from "next/head";
 export default function Home() {
   return (
     <>
-      <Head>
+      
         <title>Rafi Adnan Portfolio</title>
         <link
           rel="icon"
@@ -39,7 +39,7 @@ export default function Home() {
             `,
           }}
         />
-      </Head>
+      
 
       <main>
         <House />
