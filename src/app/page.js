@@ -22,23 +22,7 @@ export default function Home() {
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4320225638717558"
           crossOrigin="anonymous"
         ></script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              const script = document.createElement('script');
-              script.src = 'https://storage.ko-fi.com/cdn/scripts/overlay-widget.js';
-              script.onload = () => {
-                kofiWidgetOverlay.draw('gregsea', {
-                  'type': 'floating-chat',
-                  'floating-chat.donateButton.text': 'Support me',
-                  'floating-chat.donateButton.background-color': '#00b9fe',
-                  'floating-chat.donateButton.text-color': '#fff'
-                });
-              };
-              document.head.appendChild(script);
-            `,
-          }}
-        />
+     
       
 
       <main>
