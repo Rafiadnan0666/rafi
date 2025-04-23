@@ -885,24 +885,9 @@ const PortXFolio = () => {
           {time.toLocaleDateString()}
         </div>
       </div>
-      <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              const script = document.createElement('script');
-              script.src = 'https://storage.ko-fi.com/cdn/scripts/overlay-widget.js';
-              script.onload = () => {
-                kofiWidgetOverlay.draw('gregsea', {
-                  'type': 'floating-chat',
-                  'floating-chat.donateButton.text': 'Support me',
-                  'floating-chat.donateButton.background-color': '#00b9fe',
-                  'floating-chat.donateButton.text-color': '#fff'
-                });
-              };
-              document.head.appendChild(script);
-            `,
-          }}
-        />
+     
     </div>
+    
   );
 };
 
