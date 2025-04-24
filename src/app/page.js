@@ -40,7 +40,7 @@ export default function Home() {
       </Script>
 
       {/* Ko-Fi Floating Widget */}
-      <Script id="kofi-widget" strategy="afterInteractive">
+      {/* <Script id="kofi-widget" strategy="afterInteractive">
         {`
           const script = document.createElement('script');
           script.src = 'https://storage.ko-fi.com/cdn/scripts/overlay-widget.js';
@@ -54,12 +54,11 @@ export default function Home() {
           };
           document.head.appendChild(script);
         `}
-      </Script>
+      </Script> */}
 
       <main>
         <House />
-        <Projects />
-        <Analytics />
+
       </main>
     </>
   );

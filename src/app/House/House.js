@@ -17,7 +17,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import "./../page.css";
-
+import Script from "next/script";
 const PortXFolio = () => {
   // State hooks
   const [windows, setWindows] = useState({
@@ -722,11 +722,19 @@ const PortXFolio = () => {
       link: "https://jawaradm.com/",
     },
     {
-      title: "Starfall (WIP)",
+      title: "Starfall (Coming Soon)",
       description:
         "Sci-fi roguelike shooter inspired by Risk of Rain 2 and No Man's Sky.",
       image: "https://via.placeholder.com/300x200?text=Starfall+Game",
       link: "#",
+    },
+    {
+      title: "End",
+      description:
+        "A sinister coliseum where warriors fight for false freedom.",
+      image:
+        "https://img.itch.zone/aW1nLzE5NjM4NTM0LmpwZw==/315x250%23c/YRDn7Q.jpg",
+      link: "https://gregrsea-975.itch.io/end",
     },
   ];
 
@@ -780,7 +788,10 @@ const PortXFolio = () => {
           <FontAwesomeIcon icon={faFolder} size="3x" />
           <span>Projects</span>
         </div>
-        <div className="desktop-icon" onClick={() => openWindow("gamesLibrary")}>
+        <div
+          className="desktop-icon"
+          onClick={() => openWindow("gamesLibrary")}
+        >
           <FontAwesomeIcon icon={faGamepad} size="3x" />
           <span>Games</span>
         </div>
@@ -796,86 +807,96 @@ const PortXFolio = () => {
 
       {/* Profile Window */}
       {windows.profile.open && !windows.profile.minimized && (
-        <div
-          className={`window ${
-            activeWindow === "profile" ? "active-window" : ""
-          }`}
-          style={{
-            width: windows.profile.fullscreen ? "95vw" : "500px",
-            height: windows.profile.fullscreen ? "90vh" : "auto",
-            zIndex: windows.profile.zIndex,
-            left: windows.profile.fullscreen ? 0 : windows.profile.pos.x,
-            top: windows.profile.fullscreen ? 0 : windows.profile.pos.y,
-          }}
-          onMouseDown={(e) => handleMouseDown(e, "profile")}
-        >
-          <div className="window-title-bar">
-            <div className="window-controls">
-              <button onClick={() => closeWindow("profile")}>
-                <FontAwesomeIcon icon={faTimes} />
-              </button>
-              <button onClick={() => toggleMinimize("profile")}>
-                <FontAwesomeIcon icon={faMinus} />
-              </button>
-              <button onClick={() => toggleFullscreen("profile")}>
-                <FontAwesomeIcon
-                  icon={
-                    windows.profile.fullscreen
-                      ? faWindowRestore
-                      : faWindowMaximize
-                  }
-                />
-              </button>
-            </div>
-            <span>My Profile</span>
+  <div
+    className={`window ${
+      activeWindow === "profile" ? "active-window" : ""
+    }`}
+    style={{
+      width: windows.profile.fullscreen ? "95vw" : "500px",
+      height: windows.profile.fullscreen ? "90vh" : "auto",
+      zIndex: windows.profile.zIndex,
+      left: windows.profile.fullscreen ? 0 : windows.profile.pos.x,
+      top: windows.profile.fullscreen ? 0 : windows.profile.pos.y,
+    }}
+    onMouseDown={(e) => handleMouseDown(e, "profile")}
+  >
+    <div className="window-title-bar">
+      <div className="window-controls">
+        <button onClick={() => closeWindow("profile")}>
+          <FontAwesomeIcon icon={faTimes} />
+        </button>
+        <button onClick={() => toggleMinimize("profile")}>
+          <FontAwesomeIcon icon={faMinus} />
+        </button>
+        <button onClick={() => toggleFullscreen("profile")}>
+          <FontAwesomeIcon
+            icon={
+              windows.profile.fullscreen
+                ? faWindowRestore
+                : faWindowMaximize
+            }
+          />
+        </button>
+      </div>
+      <span>My Profile</span>
+    </div>
+    <div className="window-content">
+      <div className="profile-content">
+        <img
+          src="https://fiverr-res.cloudinary.com/t_profile_original,q_auto,f_auto/attachments/profile/photo/5807b862bf1790ac6b1f82ab75d1be73-1743593947676/af264c2c-8fbc-4003-a5b3-d0b46292c8f8.png"
+          alt="Profile"
+          className="profile-pic"
+        />
+        <div>
+          <h2>Rafi Adnan</h2>
+          <p>
+            Full-stack Developer | Game Developer | Creative Technologist
+          </p>
+
+          <div className="skills-section">
+            <h3>Technical Skills:</h3>
+            <ul>
+              <li><strong>Frontend:</strong> React, Next.js, Tailwind CSS, JavaScript</li>
+              <li><strong>Backend:</strong> Laravel, PHP, MySQL, Node.js</li>
+              <li><strong>Game Dev:</strong> Unity, C#, Shader Graph, NavMesh AI</li>
+              <li><strong>Tools:</strong> Git, Figma, Vercel, Netlify</li>
+            </ul>
           </div>
-          <div className="window-content">
-            <div className="profile-content">
+
+          <div className="bio-section">
+            <h3>About Me:</h3>
+            <p>
+              I m a passionate and versatile developer based in Indonesia,
+              dedicated to building immersive digital experiences across web
+              and game development. My skillset bridges frontend and backend
+              systems, real-time interaction, and creative design. Whether
+              it s a sleek full-stack application or a high-energy multiplayer
+              game in Unity, I bring ideas to life with clean code, smart logic,
+              and memorable user experiences. I love challenges and I thrive in
+              both solo and collaborative environments.
+            </p>
+          </div>
+
+          <div className="kofi-section" style={{ marginTop: "20px" }}>
+            <a
+              href="https://ko-fi.com/Q5Q81DS5SA"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <img
-                src="https://via.placeholder.com/150"
-                alt="Profile"
-                className="profile-pic"
+                height="36"
+                style={{ border: 0, height: 36 }}
+                src="https://storage.ko-fi.com/cdn/kofi6.png?v=6"
+                alt="Buy Me a Coffee at ko-fi.com"
               />
-              <div>
-                <h2>Rafi Adnan</h2>
-                <p>
-                  Full-stack developer | Game Developer | Creative Technologist
-                </p>
-
-                <div className="skills-section">
-                  <h3>Technical Skills:</h3>
-                  <ul>
-                    <li>
-                      <strong>Frontend:</strong> React, Next.js, Tailwind CSS,
-                      JavaScript
-                    </li>
-                    <li>
-                      <strong>Backend:</strong> Laravel, PHP, MySQL, Node.js
-                    </li>
-                    <li>
-                      <strong>Game Dev:</strong> Unity, C#, Shader Graph,
-                      NavMesh AI
-                    </li>
-                    <li>
-                      <strong>Tools:</strong> Git, Figma, Vercel, Netlify
-                    </li>
-                  </ul>
-                </div>
-
-                <div className="bio-section">
-                  <h3>About Me:</h3>
-                  <p>
-                    Im a passionate developer from Indonesia who builds
-                    immersive digital experiences. Whether its a sleek web
-                    application or an engaging game, I focus on creating
-                    intuitive, responsive, and memorable interactions.
-                  </p>
-                </div>
-              </div>
-            </div>
+            </a>
           </div>
         </div>
-      )}
+      </div>
+    </div>
+  </div>
+)}
+
 
       {/* Projects Window */}
       {windows.projects.open && !windows.projects.minimized && (
@@ -947,8 +968,12 @@ const PortXFolio = () => {
             width: windows.gamesLibrary.fullscreen ? "95vw" : "500px",
             height: windows.gamesLibrary.fullscreen ? "90vh" : "400px",
             zIndex: windows.gamesLibrary.zIndex,
-            left: windows.gamesLibrary.fullscreen ? 0 : windows.gamesLibrary.pos.x,
-            top: windows.gamesLibrary.fullscreen ? 0 : windows.gamesLibrary.pos.y,
+            left: windows.gamesLibrary.fullscreen
+              ? 0
+              : windows.gamesLibrary.pos.x,
+            top: windows.gamesLibrary.fullscreen
+              ? 0
+              : windows.gamesLibrary.pos.y,
           }}
           onMouseDown={(e) => handleMouseDown(e, "gamesLibrary")}
         >
@@ -999,8 +1024,12 @@ const PortXFolio = () => {
             width: windows.targetPractice.fullscreen ? "95vw" : "400px",
             height: windows.targetPractice.fullscreen ? "90vh" : "400px",
             zIndex: windows.targetPractice.zIndex,
-            left: windows.targetPractice.fullscreen ? 0 : windows.targetPractice.pos.x,
-            top: windows.targetPractice.fullscreen ? 0 : windows.targetPractice.pos.y,
+            left: windows.targetPractice.fullscreen
+              ? 0
+              : windows.targetPractice.pos.x,
+            top: windows.targetPractice.fullscreen
+              ? 0
+              : windows.targetPractice.pos.y,
           }}
           onMouseDown={(e) => handleMouseDown(e, "targetPractice")}
         >
@@ -1041,93 +1070,94 @@ const PortXFolio = () => {
 
       {/* Minesweeper Game Window */}
       {windows.minesweeper.open && !windows.minesweeper.minimized && (
-  <div
-    className={`window ${
-      activeWindow === "minesweeper" ? "active-window" : ""
-    }`}
-    style={{
-      width: windows.minesweeper.fullscreen ? "95vw" : "500px",
-      height: windows.minesweeper.fullscreen ? "90vh" : "500px",
-      zIndex: windows.minesweeper.zIndex,
-      left: windows.minesweeper.fullscreen ? 0 : windows.minesweeper.pos.x,
-      top: windows.minesweeper.fullscreen ? 0 : windows.minesweeper.pos.y,
-    }}
-    onMouseDown={(e) => handleMouseDown(e, "minesweeper")}
-  >
-    <div className="window-title-bar">
-      <div className="window-controls">
-        <button onClick={() => closeWindow("minesweeper")}>
-          <FontAwesomeIcon icon={faTimes} />
-        </button>
-        <button onClick={() => toggleMinimize("minesweeper")}>
-          <FontAwesomeIcon icon={faMinus} />
-        </button>
-        <button onClick={() => toggleFullscreen("minesweeper")}>
-          <FontAwesomeIcon
-            icon={
-              windows.minesweeper.fullscreen
-                ? faWindowRestore
-                : faWindowMaximize
-            }
-          />
-        </button>
-      </div>
-      <span>
-        Minesweeper{" "}
-        {gameWon ? "🎉 You Won!" : gameLost ? "💥 Game Over!" : ""}
-      </span>
-    </div>
-    <div className="window-content">
-      <div className="minesweeper-container">
-        <div className="minesweeper-controls">
-          <button onClick={initializeMinesweeper}>New Game</button>
-          <span>Mines: 15</span>
-        </div>
-        <div className="minesweeper-grid">
-          {minesweeperGrid.map((row, y) => (
-            <div key={y} className="minesweeper-row">
-              {row.map((cell, x) => (
-                <div
-                  key={`${x}-${y}`}
-                  className={`minesweeper-cell ${
-                    revealedCells.includes(`${x},${y}`) ? "revealed" : ""
-                  } ${
-                    flaggedCells.includes(`${x},${y}`) ? "flagged" : ""
-                  }`}
-                  onClick={() => revealCell(x, y)}
-                  onContextMenu={(e) => toggleFlag(x, y, e)}
-                >
-                  {revealedCells.includes(`${x},${y}`)
-                    ? cell === "M"
-                      ? "💣"
-                      : cell > 0
-                      ? cell
-                      : null
-                    : flaggedCells.includes(`${x},${y}`)
-                    ? "🚩"
-                    : null}
-                </div>
-              ))}
+        <div
+          className={`window ${
+            activeWindow === "minesweeper" ? "active-window" : ""
+          }`}
+          style={{
+            width: windows.minesweeper.fullscreen ? "95vw" : "500px",
+            height: windows.minesweeper.fullscreen ? "90vh" : "500px",
+            zIndex: windows.minesweeper.zIndex,
+            left: windows.minesweeper.fullscreen
+              ? 0
+              : windows.minesweeper.pos.x,
+            top: windows.minesweeper.fullscreen ? 0 : windows.minesweeper.pos.y,
+          }}
+          onMouseDown={(e) => handleMouseDown(e, "minesweeper")}
+        >
+          <div className="window-title-bar">
+            <div className="window-controls">
+              <button onClick={() => closeWindow("minesweeper")}>
+                <FontAwesomeIcon icon={faTimes} />
+              </button>
+              <button onClick={() => toggleMinimize("minesweeper")}>
+                <FontAwesomeIcon icon={faMinus} />
+              </button>
+              <button onClick={() => toggleFullscreen("minesweeper")}>
+                <FontAwesomeIcon
+                  icon={
+                    windows.minesweeper.fullscreen
+                      ? faWindowRestore
+                      : faWindowMaximize
+                  }
+                />
+              </button>
             </div>
-          ))}
+            <span>
+              Minesweeper{" "}
+              {gameWon ? "🎉 You Won!" : gameLost ? "💥 Game Over!" : ""}
+            </span>
+          </div>
+          <div className="window-content">
+            <div className="minesweeper-container">
+              <div className="minesweeper-controls">
+                <button onClick={initializeMinesweeper}>New Game</button>
+                <span>Mines: 15</span>
+              </div>
+              <div className="minesweeper-grid">
+                {minesweeperGrid.map((row, y) => (
+                  <div key={y} className="minesweeper-row">
+                    {row.map((cell, x) => (
+                      <div
+                        key={`${x}-${y}`}
+                        className={`minesweeper-cell ${
+                          revealedCells.includes(`${x},${y}`) ? "revealed" : ""
+                        } ${
+                          flaggedCells.includes(`${x},${y}`) ? "flagged" : ""
+                        }`}
+                        onClick={() => revealCell(x, y)}
+                        onContextMenu={(e) => toggleFlag(x, y, e)}
+                      >
+                        {revealedCells.includes(`${x},${y}`)
+                          ? cell === "M"
+                            ? "💣"
+                            : cell > 0
+                            ? cell
+                            : null
+                          : flaggedCells.includes(`${x},${y}`)
+                          ? "🚩"
+                          : null}
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              </div>
+              {gameLost && (
+                <div className="game-over-message">
+                  <p>You hit a mine! Game over.</p>
+                  <button onClick={initializeMinesweeper}>Play Again</button>
+                </div>
+              )}
+              {gameWon && (
+                <div className="game-won-message">
+                  <p>Congratulations! You cleared all mines!</p>
+                  <button onClick={initializeMinesweeper}>Play Again</button>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
-        {gameLost && (
-          <div className="game-over-message">
-            <p>You hit a mine! Game over.</p>
-            <button onClick={initializeMinesweeper}>Play Again</button>
-          </div>
-        )}
-        {gameWon && (
-          <div className="game-won-message">
-            <p>Congratulations! You cleared all mines!</p>
-            <button onClick={initializeMinesweeper}>Play Again</button>
-          </div>
-        )}
-      </div>
-    </div>
-  </div>
-)}
-
+      )}
 
       {/* Snake Game Window */}
       {windows.snake.open && !windows.snake.minimized && (
@@ -1189,9 +1219,7 @@ const PortXFolio = () => {
                 <div className="snake-game-over">
                   <h2>Game Over!</h2>
                   <p>Final Score: {gameScore}</p>
-                  <button onClick={initializeSnake}>
-                    Play Again
-                  </button>
+                  <button onClick={initializeSnake}>Play Again</button>
                 </div>
               )}
             </div>
@@ -1432,58 +1460,59 @@ const PortXFolio = () => {
 
       {/* Spotify Window */}
       {windows.spotify.open && !windows.spotify.minimized && (
-        <div
-          className={`window ${
-            activeWindow === "spotify" ? "active-window" : ""
-          }`}
-          style={{
-            width: windows.spotify.fullscreen ? "95vw" : "400px",
-            height: windows.spotify.fullscreen ? "90vh" : "500px",
-            zIndex: windows.spotify.zIndex,
-            left: windows.spotify.fullscreen ? 0 : windows.spotify.pos.x,
-            top: windows.spotify.fullscreen ? 0 : windows.spotify.pos.y,
-          }}
-          onMouseDown={(e) => handleMouseDown(e, "spotify")}
-        >
-          <div className="window-title-bar">
-            <div className="window-controls">
-              <button onClick={() => closeWindow("spotify")}>
-                <FontAwesomeIcon icon={faTimes} />
-              </button>
-              <button onClick={() => toggleMinimize("spotify")}>
-                <FontAwesomeIcon icon={faMinus} />
-              </button>
-              <button onClick={() => toggleFullscreen("spotify")}>
-                <FontAwesomeIcon
-                  icon={
-                    windows.spotify.fullscreen
-                      ? faWindowRestore
-                      : faWindowMaximize
-                  }
-                />
-              </button>
-            </div>
-            <span>Spotify Player</span>
-          </div>
-          <div className="window-content">
-            <iframe
-              src="https://open.spotify.com/embed/playlist/4tI4bWB5cKvlVEAypIpnn8"
-              width="100%"
-              height="380"
-              frameBorder="0"
-              allow="encrypted-media"
-              className="spotify-embed"
-            ></iframe>
-            <div className="spotify-info">
-              <h3>Rafi Coding Playlist</h3>
-              <p>
-                A mix of electronic and ambient tracks for focused development
-                sessions.
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
+  <div
+    className={`window ${
+      activeWindow === "spotify" ? "active-window" : ""
+    }`}
+    style={{
+      width: windows.spotify.fullscreen ? "95vw" : "400px",
+      height: windows.spotify.fullscreen ? "90vh" : "500px",
+      zIndex: windows.spotify.zIndex,
+      left: windows.spotify.fullscreen ? 0 : windows.spotify.pos.x,
+      top: windows.spotify.fullscreen ? 0 : windows.spotify.pos.y,
+    }}
+    onMouseDown={(e) => handleMouseDown(e, "spotify")}
+  >
+    <div className="window-title-bar">
+      <div className="window-controls">
+        <button onClick={() => closeWindow("spotify")}>
+          <FontAwesomeIcon icon={faTimes} />
+        </button>
+        <button onClick={() => toggleMinimize("spotify")}>
+          <FontAwesomeIcon icon={faMinus} />
+        </button>
+        <button onClick={() => toggleFullscreen("spotify")}>
+          <FontAwesomeIcon
+            icon={
+              windows.spotify.fullscreen
+                ? faWindowRestore
+                : faWindowMaximize
+            }
+          />
+        </button>
+      </div>
+      <span>My Music</span>
+    </div>
+    <div className="window-content">
+      <iframe
+        src="https://open.spotify.com/embed/artist/2PYunjmmYVDbsSudTPSwyv?utm_source=generator"
+        width="100%"
+        height="380"
+        frameBorder="0"
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy"
+        className="spotify-embed"
+      ></iframe>
+      <div className="spotify-info">
+        <h3>Rafi Adnan on Spotify</h3>
+        <p>
+      
+        </p>
+      </div>
+    </div>
+  </div>
+)}
+
 
       {/* Taskbar */}
       <div className="taskbar">
@@ -1497,7 +1526,7 @@ const PortXFolio = () => {
           <div className="start-menu active">
             <div className="start-header">
               <img
-                src="https://via.placeholder.com/150"
+                src="https://fiverr-res.cloudinary.com/t_profile_original,q_auto,f_auto/attachments/profile/photo/5807b862bf1790ac6b1f82ab75d1be73-1743593947676/af264c2c-8fbc-4003-a5b3-d0b46292c8f8.png"
                 alt="Profile"
                 className="start-profile-pic"
               />
