@@ -13,7 +13,7 @@ import {
   faGamepad,
   faRobot,
   faChess,
-  faBorderAll
+  faBorderAll,
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import "./../page.css";
@@ -21,17 +21,79 @@ import "./../page.css";
 const PortXFolio = () => {
   // State hooks
   const [windows, setWindows] = useState({
-    profile: { open: false, minimized: false, fullscreen: false, zIndex: 1, pos: { x: 50, y: 50 } },
-    projects: { open: false, minimized: false, fullscreen: false, zIndex: 2, pos: { x: 100, y: 100 } },
-    spotify: { open: false, minimized: false, fullscreen: false, zIndex: 3, pos: { x: 150, y: 150 } },
-    games: { open: false, minimized: false, fullscreen: false, zIndex: 4, pos: { x: 200, y: 200 } },
-    minesweeper: { open: false, minimized: false, fullscreen: false, zIndex: 5, pos: { x: 250, y: 250 } },
-    snake: { open: false, minimized: false, fullscreen: false, zIndex: 6, pos: { x: 300, y: 300 } },
-    tetris: { open: false, minimized: false, fullscreen: false, zIndex: 7, pos: { x: 350, y: 350 } },
-    chess: { open: false, minimized: false, fullscreen: false, zIndex: 8, pos: { x: 400, y: 400 } },
-    aiChat: { open: false, minimized: false, fullscreen: false, zIndex: 9, pos: { x: 450, y: 450 } },
+    profile: {
+      open: false,
+      minimized: false,
+      fullscreen: false,
+      zIndex: 1,
+      pos: { x: 50, y: 50 },
+    },
+    projects: {
+      open: false,
+      minimized: false,
+      fullscreen: false,
+      zIndex: 2,
+      pos: { x: 100, y: 100 },
+    },
+    spotify: {
+      open: false,
+      minimized: false,
+      fullscreen: false,
+      zIndex: 3,
+      pos: { x: 150, y: 150 },
+    },
+    gamesLibrary: {
+      open: false,
+      minimized: false,
+      fullscreen: false,
+      zIndex: 4,
+      pos: { x: 200, y: 200 },
+    },
+    targetPractice: {
+      open: false,
+      minimized: false,
+      fullscreen: false,
+      zIndex: 5,
+      pos: { x: 220, y: 220 },
+    },
+    minesweeper: {
+      open: false,
+      minimized: false,
+      fullscreen: false,
+      zIndex: 6,
+      pos: { x: 250, y: 250 },
+    },
+    snake: {
+      open: false,
+      minimized: false,
+      fullscreen: false,
+      zIndex: 7,
+      pos: { x: 300, y: 300 },
+    },
+    tetris: {
+      open: false,
+      minimized: false,
+      fullscreen: false,
+      zIndex: 8,
+      pos: { x: 350, y: 350 },
+    },
+    chess: {
+      open: false,
+      minimized: false,
+      fullscreen: false,
+      zIndex: 9,
+      pos: { x: 400, y: 400 },
+    },
+    aiChat: {
+      open: false,
+      minimized: false,
+      fullscreen: false,
+      zIndex: 10,
+      pos: { x: 450, y: 450 },
+    },
   });
 
+  const [startMenuOpen, setStartMenuOpen] = useState(false);
   const [activeWindow, setActiveWindow] = useState(null);
   const [time, setTime] = useState(new Date());
   const [isDragging, setIsDragging] = useState(false);
@@ -41,42 +103,52 @@ const PortXFolio = () => {
   // Game states
   const [gameScore, setGameScore] = useState(0);
   const [gamePosition, setGamePosition] = useState({ x: 50, y: 50 });
-  
-  // Snake game
+
   const [snake, setSnake] = useState([{ x: 10, y: 10 }]);
   const [food, setFood] = useState({ x: 5, y: 5 });
   const [direction, setDirection] = useState("RIGHT");
   const [snakeGameOver, setSnakeGameOver] = useState(false);
-  
-  // Minesweeper
+
   const [minesweeperGrid, setMinesweeperGrid] = useState([]);
   const [revealedCells, setRevealedCells] = useState([]);
   const [flaggedCells, setFlaggedCells] = useState([]);
   const [gameWon, setGameWon] = useState(false);
   const [gameLost, setGameLost] = useState(false);
-  
-  // Tetris
-  const [tetrisGrid, setTetrisGrid] = useState(Array(20).fill().map(() => Array(10).fill(0)));
+
+  const [tetrisGrid, setTetrisGrid] = useState(
+    Array(20)
+      .fill()
+      .map(() => Array(10).fill(0))
+  );
   const [currentPiece, setCurrentPiece] = useState(null);
   const [tetrisScore, setTetrisScore] = useState(0);
   const [tetrisGameOver, setTetrisGameOver] = useState(false);
-  
-  // Chess
+
   const [chessBoard, setChessBoard] = useState([]);
   const [selectedChessPiece, setSelectedChessPiece] = useState(null);
-  
+
   // AI Chat
   const [aiResponse, setAiResponse] = useState("");
   const [userMessage, setUserMessage] = useState("");
   const [isThinking, setIsThinking] = useState(false);
 
-  // Initialize games
+  const initializeSnake = () => {
+    setSnake([{ x: 10, y: 10 }]);
+    setFood({ x: 5, y: 5 });
+    setDirection("RIGHT");
+    setSnakeGameOver(false);
+    setGameScore(0);
+  };
+
   useEffect(() => {
-    if (windows.minesweeper.open && minesweeperGrid.length === 0) {
-      initializeMinesweeper();
+    if (windows.snake.open && snake.length === 1 && snake[0].x === 10) {
+      initializeSnake();
     }
     if (windows.tetris.open && tetrisGrid[0][0] === 0) {
       initializeTetris();
+    }
+    if (windows.minesweeper.open && minesweeperGrid.length === 0) {
+      initializeMinesweeper();
     }
     if (windows.chess.open && chessBoard.length === 0) {
       initializeChess();
@@ -88,14 +160,22 @@ const PortXFolio = () => {
     if (!windows.snake.open || snakeGameOver) return;
 
     const moveSnake = () => {
-      setSnake(prevSnake => {
+      setSnake((prevSnake) => {
         const head = { ...prevSnake[0] };
 
         switch (direction) {
-          case "UP": head.y -= 1; break;
-          case "DOWN": head.y += 1; break;
-          case "LEFT": head.x -= 1; break;
-          case "RIGHT": head.x += 1; break;
+          case "UP":
+            head.y -= 1;
+            break;
+          case "DOWN":
+            head.y += 1;
+            break;
+          case "LEFT":
+            head.x -= 1;
+            break;
+          case "RIGHT":
+            head.x += 1;
+            break;
         }
 
         // Wall collision
@@ -105,7 +185,11 @@ const PortXFolio = () => {
         }
 
         // Self collision
-        if (prevSnake.some(segment => segment.x === head.x && segment.y === head.y)) {
+        if (
+          prevSnake.some(
+            (segment) => segment.x === head.x && segment.y === head.y
+          )
+        ) {
           setSnakeGameOver(true);
           return prevSnake;
         }
@@ -114,7 +198,7 @@ const PortXFolio = () => {
 
         // Food collision
         if (head.x === food.x && head.y === food.y) {
-          setGameScore(prev => prev + 10);
+          setGameScore((prev) => prev + 10);
           setFood({
             x: Math.floor(Math.random() * 20),
             y: Math.floor(Math.random() * 20),
@@ -137,20 +221,36 @@ const PortXFolio = () => {
       // Snake controls
       if (windows.snake.open && !snakeGameOver) {
         switch (e.key) {
-          case "ArrowUp": if (direction !== "DOWN") setDirection("UP"); break;
-          case "ArrowDown": if (direction !== "UP") setDirection("DOWN"); break;
-          case "ArrowLeft": if (direction !== "RIGHT") setDirection("LEFT"); break;
-          case "ArrowRight": if (direction !== "LEFT") setDirection("RIGHT"); break;
+          case "ArrowUp":
+            if (direction !== "DOWN") setDirection("UP");
+            break;
+          case "ArrowDown":
+            if (direction !== "UP") setDirection("DOWN");
+            break;
+          case "ArrowLeft":
+            if (direction !== "RIGHT") setDirection("LEFT");
+            break;
+          case "ArrowRight":
+            if (direction !== "LEFT") setDirection("RIGHT");
+            break;
         }
       }
-      
+
       // Tetris controls
       if (windows.tetris.open && !tetrisGameOver && currentPiece) {
         switch (e.key) {
-          case "ArrowLeft": moveTetrisPiece(-1, 0); break;
-          case "ArrowRight": moveTetrisPiece(1, 0); break;
-          case "ArrowDown": moveTetrisPiece(0, 1); break;
-          case "ArrowUp": rotateTetrisPiece(); break;
+          case "ArrowLeft":
+            moveTetrisPiece(-1, 0);
+            break;
+          case "ArrowRight":
+            moveTetrisPiece(1, 0);
+            break;
+          case "ArrowDown":
+            moveTetrisPiece(0, 1);
+            break;
+          case "ArrowUp":
+            rotateTetrisPiece();
+            break;
         }
       }
     };
@@ -179,29 +279,29 @@ const PortXFolio = () => {
 
   // Window dragging logic
   const handleMouseDown = (e, windowName) => {
-    if (e.target.closest('.window-controls')) return;
-    
+    if (e.target.closest(".window-controls")) return;
+
     bringToFront(windowName);
     setIsDragging(true);
     setDragWindow(windowName);
     setDragOffset({
       x: e.clientX - windows[windowName].pos.x,
-      y: e.clientY - windows[windowName].pos.y
+      y: e.clientY - windows[windowName].pos.y,
     });
   };
 
   const handleMouseMove = (e) => {
     if (!isDragging || !dragWindow) return;
 
-    setWindows(prev => ({
+    setWindows((prev) => ({
       ...prev,
       [dragWindow]: {
         ...prev[dragWindow],
         pos: {
           x: e.clientX - dragOffset.x,
-          y: Math.min(e.clientY - dragOffset.y, window.innerHeight - 100) // Prevent dragging above top
-        }
-      }
+          y: Math.min(e.clientY - dragOffset.y, window.innerHeight - 100),
+        },
+      },
     }));
   };
 
@@ -212,64 +312,71 @@ const PortXFolio = () => {
 
   // Window management functions
   const openWindow = (windowName) => {
-    setWindows(prev => ({
+    setWindows((prev) => ({
       ...prev,
       [windowName]: {
         ...prev[windowName],
         open: true,
         minimized: false,
-        zIndex: Object.values(prev).reduce((max, w) => Math.max(max, w.zIndex), 0) + 1,
-      }
+        zIndex:
+          Object.values(prev).reduce((max, w) => Math.max(max, w.zIndex), 0) +
+          1,
+      },
     }));
     setActiveWindow(windowName);
   };
 
   const closeWindow = (windowName) => {
-    setWindows(prev => ({
+    setWindows((prev) => ({
       ...prev,
       [windowName]: {
         ...prev[windowName],
         open: false,
-      }
+      },
     }));
     if (activeWindow === windowName) setActiveWindow(null);
   };
 
   const toggleMinimize = (windowName) => {
-    setWindows(prev => ({
+    setWindows((prev) => ({
       ...prev,
       [windowName]: {
         ...prev[windowName],
         minimized: !prev[windowName].minimized,
-      }
+      },
     }));
   };
 
   const toggleFullscreen = (windowName) => {
-    setWindows(prev => ({
+    setWindows((prev) => ({
       ...prev,
       [windowName]: {
         ...prev[windowName],
         fullscreen: !prev[windowName].fullscreen,
-        pos: prev[windowName].fullscreen ? prev[windowName].pos : { x: 0, y: 0 }
-      }
+        pos: prev[windowName].fullscreen
+          ? prev[windowName].pos
+          : { x: 0, y: 0 },
+      },
     }));
   };
 
   const bringToFront = (windowName) => {
-    setWindows(prev => ({
+    setWindows((prev) => ({
       ...prev,
       [windowName]: {
         ...prev[windowName],
-        zIndex: Object.values(prev).reduce((max, w) => Math.max(max, w.zIndex), 0) + 1,
-      }
+        zIndex:
+          Object.values(prev).reduce((max, w) => Math.max(max, w.zIndex), 0) +
+          1,
+      },
     }));
     setActiveWindow(windowName);
   };
 
-  // Minesweeper functions
   const initializeMinesweeper = () => {
-    const grid = Array(10).fill().map(() => Array(10).fill(0));
+    const grid = Array(10)
+      .fill()
+      .map(() => Array(10).fill(0));
     let mines = 15;
 
     // Place mines
@@ -291,7 +398,13 @@ const PortXFolio = () => {
         let count = 0;
         for (let dy = -1; dy <= 1; dy++) {
           for (let dx = -1; dx <= 1; dx++) {
-            if (y + dy >= 0 && y + dy < 10 && x + dx >= 0 && x + dx < 10 && grid[y + dy][x + dx] === "M") {
+            if (
+              y + dy >= 0 &&
+              y + dy < 10 &&
+              x + dx >= 0 &&
+              x + dx < 10 &&
+              grid[y + dy][x + dx] === "M"
+            ) {
               count++;
             }
           }
@@ -308,7 +421,11 @@ const PortXFolio = () => {
   };
 
   const revealCell = (x, y) => {
-    if (flaggedCells.includes(`${x},${y}`) || revealedCells.includes(`${x},${y}`)) return;
+    if (
+      flaggedCells.includes(`${x},${y}`) ||
+      revealedCells.includes(`${x},${y}`)
+    )
+      return;
     if (gameWon || gameLost) return;
 
     const newRevealed = [...revealedCells, `${x},${y}`];
@@ -323,7 +440,13 @@ const PortXFolio = () => {
     if (minesweeperGrid[y][x] === 0) {
       for (let dy = -1; dy <= 1; dy++) {
         for (let dx = -1; dx <= 1; dx++) {
-          if (y + dy >= 0 && y + dy < 10 && x + dx >= 0 && x + dx < 10 && !newRevealed.includes(`${x + dx},${y + dy}`)) {
+          if (
+            y + dy >= 0 &&
+            y + dy < 10 &&
+            x + dx >= 0 &&
+            x + dx < 10 &&
+            !newRevealed.includes(`${x + dx},${y + dy}`)
+          ) {
             revealCell(x + dx, y + dy);
           }
         }
@@ -334,7 +457,10 @@ const PortXFolio = () => {
     let unrevealed = 0;
     for (let y = 0; y < 10; y++) {
       for (let x = 0; x < 10; x++) {
-        if (minesweeperGrid[y][x] !== "M" && !newRevealed.includes(`${x},${y}`)) {
+        if (
+          minesweeperGrid[y][x] !== "M" &&
+          !newRevealed.includes(`${x},${y}`)
+        ) {
           unrevealed++;
         }
       }
@@ -347,7 +473,7 @@ const PortXFolio = () => {
     if (revealedCells.includes(`${x},${y}`)) return;
 
     if (flaggedCells.includes(`${x},${y}`)) {
-      setFlaggedCells(flaggedCells.filter(cell => cell !== `${x},${y}`));
+      setFlaggedCells(flaggedCells.filter((cell) => cell !== `${x},${y}`));
     } else {
       setFlaggedCells([...flaggedCells, `${x},${y}`]);
     }
@@ -355,7 +481,9 @@ const PortXFolio = () => {
 
   // Tetris functions
   const initializeTetris = () => {
-    const emptyGrid = Array(20).fill().map(() => Array(10).fill(0));
+    const emptyGrid = Array(20)
+      .fill()
+      .map(() => Array(10).fill(0));
     setTetrisGrid(emptyGrid);
     setTetrisScore(0);
     setTetrisGameOver(false);
@@ -365,19 +493,37 @@ const PortXFolio = () => {
   const spawnNewTetrisPiece = () => {
     const pieces = [
       [[1, 1, 1, 1]], // I
-      [[1, 1], [1, 1]], // O
-      [[1, 1, 1], [0, 1, 0]], // T
-      [[1, 1, 1], [1, 0, 0]], // L
-      [[1, 1, 1], [0, 0, 1]], // J
-      [[0, 1, 1], [1, 1, 0]], // S
-      [[1, 1, 0], [0, 1, 1]]  // Z
+      [
+        [1, 1],
+        [1, 1],
+      ], // O
+      [
+        [1, 1, 1],
+        [0, 1, 0],
+      ], // T
+      [
+        [1, 1, 1],
+        [1, 0, 0],
+      ], // L
+      [
+        [1, 1, 1],
+        [0, 0, 1],
+      ], // J
+      [
+        [0, 1, 1],
+        [1, 1, 0],
+      ], // S
+      [
+        [1, 1, 0],
+        [0, 1, 1],
+      ], // Z
     ];
-    
+
     const newPiece = {
       shape: pieces[Math.floor(Math.random() * pieces.length)],
-      pos: { x: 4, y: 0 }
+      pos: { x: 4, y: 0 },
     };
-    
+
     setCurrentPiece(newPiece);
   };
 
@@ -390,7 +536,7 @@ const PortXFolio = () => {
     if (isValidMove(currentPiece.shape, newX, newY)) {
       setCurrentPiece({
         ...currentPiece,
-        pos: { x: newX, y: newY }
+        pos: { x: newX, y: newY },
       });
     } else if (y > 0) {
       // Hit bottom - lock piece
@@ -401,14 +547,14 @@ const PortXFolio = () => {
   const rotateTetrisPiece = () => {
     if (!currentPiece) return;
 
-    const rotated = currentPiece.shape[0].map((_, i) => 
-      currentPiece.shape.map(row => row[i]).reverse()
+    const rotated = currentPiece.shape[0].map((_, i) =>
+      currentPiece.shape.map((row) => row[i]).reverse()
     );
 
     if (isValidMove(rotated, currentPiece.pos.x, currentPiece.pos.y)) {
       setCurrentPiece({
         ...currentPiece,
-        shape: rotated
+        shape: rotated,
       });
     }
   };
@@ -421,9 +567,9 @@ const PortXFolio = () => {
           const newY = y + row;
 
           if (
-            newX < 0 || 
-            newX >= 10 || 
-            newY >= 20 || 
+            newX < 0 ||
+            newX >= 10 ||
+            newY >= 20 ||
             (newY >= 0 && tetrisGrid[newY][newX] !== 0)
           ) {
             return false;
@@ -462,7 +608,7 @@ const PortXFolio = () => {
 
     // Check for completed lines
     const linesCleared = newGrid.reduce((count, row, y) => {
-      if (row.every(cell => cell !== 0)) {
+      if (row.every((cell) => cell !== 0)) {
         newGrid.splice(y, 1);
         newGrid.unshift(Array(10).fill(0));
         return count + 1;
@@ -470,28 +616,39 @@ const PortXFolio = () => {
       return count;
     }, 0);
 
-    setTetrisScore(prev => prev + linesCleared * 100);
+    setTetrisScore((prev) => prev + linesCleared * 100);
     setTetrisGrid(newGrid);
     spawnNewTetrisPiece();
   };
 
   // Chess functions
   const initializeChess = () => {
-    const board = Array(8).fill().map(() => Array(8).fill(null));
-    
+    const board = Array(8)
+      .fill()
+      .map(() => Array(8).fill(null));
+
     // Set up pawns
     for (let i = 0; i < 8; i++) {
-      board[1][i] = { type: 'pawn', color: 'black' };
-      board[6][i] = { type: 'pawn', color: 'white' };
+      board[1][i] = { type: "pawn", color: "black" };
+      board[6][i] = { type: "pawn", color: "white" };
     }
-    
+
     // Set up other pieces
-    const pieces = ['rook', 'knight', 'bishop', 'queen', 'king', 'bishop', 'knight', 'rook'];
+    const pieces = [
+      "rook",
+      "knight",
+      "bishop",
+      "queen",
+      "king",
+      "bishop",
+      "knight",
+      "rook",
+    ];
     for (let i = 0; i < 8; i++) {
-      board[0][i] = { type: pieces[i], color: 'black' };
-      board[7][i] = { type: pieces[i], color: 'white' };
+      board[0][i] = { type: pieces[i], color: "black" };
+      board[7][i] = { type: pieces[i], color: "white" };
     }
-    
+
     setChessBoard(board);
   };
 
@@ -504,12 +661,12 @@ const PortXFolio = () => {
       // Try to move
       const { row: fromRow, col: fromCol } = selectedChessPiece;
       const piece = chessBoard[fromRow][fromCol];
-      
+
       // Simple move validation (for demo purposes)
       const newBoard = [...chessBoard];
       newBoard[row][col] = piece;
       newBoard[fromRow][fromCol] = null;
-      
+
       setChessBoard(newBoard);
       setSelectedChessPiece(null);
     }
@@ -521,7 +678,7 @@ const PortXFolio = () => {
     if (!userMessage.trim()) return;
 
     setIsThinking(true);
-    
+
     // Simulate AI response
     setTimeout(() => {
       const responses = [
@@ -530,7 +687,7 @@ const PortXFolio = () => {
         "Check out the Games section for some nostalgic Windows XP-style games!",
         "This portfolio showcases innovative web technologies and interactive elements.",
         "The Minesweeper and Snake games are fully functional. Try them out!",
-        "Rafi is currently working on a sci-fi roguelike shooter called Starfall."
+        "Rafi is currently working on a sci-fi roguelike shooter called Starfall.",
       ];
       setAiResponse(responses[Math.floor(Math.random() * responses.length)]);
       setIsThinking(false);
@@ -540,7 +697,7 @@ const PortXFolio = () => {
 
   // Target game
   const hitTarget = () => {
-    setGameScore(prev => prev + 1);
+    setGameScore((prev) => prev + 1);
     setGamePosition({
       x: Math.random() * 80 + 10,
       y: Math.random() * 80 + 10,
@@ -551,19 +708,23 @@ const PortXFolio = () => {
   const projects = [
     {
       title: "Artifact Fetching For Dummies",
-      description: "An FPS game with horror and parkour elements built with Unity.",
-      image: "https://img.itch.zone/aW1nLzE4Nzk0Njg5LnBuZw==/original/FsHEyg.png",
+      description:
+        "An FPS game with horror and parkour elements built with Unity.",
+      image:
+        "https://img.itch.zone/aW1nLzE4Nzk0Njg5LnBuZw==/original/FsHEyg.png",
       link: "https://gregrsea-975.itch.io/artifact-fetching-for-dummies",
     },
     {
       title: "JawaraDM Landing Page",
-      description: "Modern responsive landing page built with React and Tailwind CSS.",
+      description:
+        "Modern responsive landing page built with React and Tailwind CSS.",
       image: "https://jawaradm.com/",
       link: "https://jawaradm.com/",
     },
     {
       title: "Starfall (WIP)",
-      description: "Sci-fi roguelike shooter inspired by Risk of Rain 2 and No Man's Sky.",
+      description:
+        "Sci-fi roguelike shooter inspired by Risk of Rain 2 and No Man's Sky.",
       image: "https://via.placeholder.com/300x200?text=Starfall+Game",
       link: "#",
     },
@@ -598,12 +759,12 @@ const PortXFolio = () => {
       title: "Target Practice",
       description: "Click the moving target to score points",
       icon: faGamepad,
-      action: () => openWindow("games"),
+      action: () => openWindow("targetPractice"),
     },
   ];
 
   return (
-    <div 
+    <div
       className="windows-xp-bg"
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
@@ -619,7 +780,7 @@ const PortXFolio = () => {
           <FontAwesomeIcon icon={faFolder} size="3x" />
           <span>Projects</span>
         </div>
-        <div className="desktop-icon" onClick={() => openWindow("games")}>
+        <div className="desktop-icon" onClick={() => openWindow("gamesLibrary")}>
           <FontAwesomeIcon icon={faGamepad} size="3x" />
           <span>Games</span>
         </div>
@@ -636,7 +797,9 @@ const PortXFolio = () => {
       {/* Profile Window */}
       {windows.profile.open && !windows.profile.minimized && (
         <div
-          className={`window ${activeWindow === "profile" ? "active-window" : ""}`}
+          className={`window ${
+            activeWindow === "profile" ? "active-window" : ""
+          }`}
           style={{
             width: windows.profile.fullscreen ? "95vw" : "500px",
             height: windows.profile.fullscreen ? "90vh" : "auto",
@@ -655,37 +818,56 @@ const PortXFolio = () => {
                 <FontAwesomeIcon icon={faMinus} />
               </button>
               <button onClick={() => toggleFullscreen("profile")}>
-                <FontAwesomeIcon icon={windows.profile.fullscreen ? faWindowRestore : faWindowMaximize} />
+                <FontAwesomeIcon
+                  icon={
+                    windows.profile.fullscreen
+                      ? faWindowRestore
+                      : faWindowMaximize
+                  }
+                />
               </button>
             </div>
             <span>My Profile</span>
           </div>
           <div className="window-content">
             <div className="profile-content">
-              <img 
-                src="https://via.placeholder.com/150" 
-                alt="Profile" 
+              <img
+                src="https://via.placeholder.com/150"
+                alt="Profile"
                 className="profile-pic"
               />
               <div>
                 <h2>Rafi Adnan</h2>
-                <p>Full-stack developer | Game Developer | Creative Technologist</p>
-                
+                <p>
+                  Full-stack developer | Game Developer | Creative Technologist
+                </p>
+
                 <div className="skills-section">
                   <h3>Technical Skills:</h3>
                   <ul>
-                    <li><strong>Frontend:</strong> React, Next.js, Tailwind CSS, JavaScript</li>
-                    <li><strong>Backend:</strong> Laravel, PHP, MySQL, Node.js</li>
-                    <li><strong>Game Dev:</strong> Unity, C#, Shader Graph, NavMesh AI</li>
-                    <li><strong>Tools:</strong> Git, Figma, Vercel, Netlify</li>
+                    <li>
+                      <strong>Frontend:</strong> React, Next.js, Tailwind CSS,
+                      JavaScript
+                    </li>
+                    <li>
+                      <strong>Backend:</strong> Laravel, PHP, MySQL, Node.js
+                    </li>
+                    <li>
+                      <strong>Game Dev:</strong> Unity, C#, Shader Graph,
+                      NavMesh AI
+                    </li>
+                    <li>
+                      <strong>Tools:</strong> Git, Figma, Vercel, Netlify
+                    </li>
                   </ul>
                 </div>
 
                 <div className="bio-section">
                   <h3>About Me:</h3>
                   <p>
-                    Im a passionate developer from Indonesia who builds immersive digital experiences. 
-                    Whether its a sleek web application or an engaging game, I focus on creating 
+                    Im a passionate developer from Indonesia who builds
+                    immersive digital experiences. Whether its a sleek web
+                    application or an engaging game, I focus on creating
                     intuitive, responsive, and memorable interactions.
                   </p>
                 </div>
@@ -698,7 +880,9 @@ const PortXFolio = () => {
       {/* Projects Window */}
       {windows.projects.open && !windows.projects.minimized && (
         <div
-          className={`window ${activeWindow === "projects" ? "active-window" : ""}`}
+          className={`window ${
+            activeWindow === "projects" ? "active-window" : ""
+          }`}
           style={{
             width: windows.projects.fullscreen ? "95vw" : "600px",
             height: windows.projects.fullscreen ? "90vh" : "500px",
@@ -717,7 +901,13 @@ const PortXFolio = () => {
                 <FontAwesomeIcon icon={faMinus} />
               </button>
               <button onClick={() => toggleFullscreen("projects")}>
-                <FontAwesomeIcon icon={windows.projects.fullscreen ? faWindowRestore : faWindowMaximize} />
+                <FontAwesomeIcon
+                  icon={
+                    windows.projects.fullscreen
+                      ? faWindowRestore
+                      : faWindowMaximize
+                  }
+                />
               </button>
             </div>
             <span>Projects</span>
@@ -732,7 +922,11 @@ const PortXFolio = () => {
                   <div className="project-info">
                     <h3>{project.title}</h3>
                     <p>{project.description}</p>
-                    <Link href={project.link} target="_blank" className="project-link">
+                    <Link
+                      href={project.link}
+                      target="_blank"
+                      className="project-link"
+                    >
                       View Project
                     </Link>
                   </div>
@@ -744,28 +938,36 @@ const PortXFolio = () => {
       )}
 
       {/* Games Library Window */}
-      {windows.games.open && !windows.games.minimized && (
+      {windows.gamesLibrary.open && !windows.gamesLibrary.minimized && (
         <div
-          className={`window ${activeWindow === "games" ? "active-window" : ""}`}
+          className={`window ${
+            activeWindow === "gamesLibrary" ? "active-window" : ""
+          }`}
           style={{
-            width: windows.games.fullscreen ? "95vw" : "500px",
-            height: windows.games.fullscreen ? "90vh" : "400px",
-            zIndex: windows.games.zIndex,
-            left: windows.games.fullscreen ? 0 : windows.games.pos.x,
-            top: windows.games.fullscreen ? 0 : windows.games.pos.y,
+            width: windows.gamesLibrary.fullscreen ? "95vw" : "500px",
+            height: windows.gamesLibrary.fullscreen ? "90vh" : "400px",
+            zIndex: windows.gamesLibrary.zIndex,
+            left: windows.gamesLibrary.fullscreen ? 0 : windows.gamesLibrary.pos.x,
+            top: windows.gamesLibrary.fullscreen ? 0 : windows.gamesLibrary.pos.y,
           }}
-          onMouseDown={(e) => handleMouseDown(e, "games")}
+          onMouseDown={(e) => handleMouseDown(e, "gamesLibrary")}
         >
           <div className="window-title-bar">
             <div className="window-controls">
-              <button onClick={() => closeWindow("games")}>
+              <button onClick={() => closeWindow("gamesLibrary")}>
                 <FontAwesomeIcon icon={faTimes} />
               </button>
-              <button onClick={() => toggleMinimize("games")}>
+              <button onClick={() => toggleMinimize("gamesLibrary")}>
                 <FontAwesomeIcon icon={faMinus} />
               </button>
-              <button onClick={() => toggleFullscreen("games")}>
-                <FontAwesomeIcon icon={windows.games.fullscreen ? faWindowRestore : faWindowMaximize} />
+              <button onClick={() => toggleFullscreen("gamesLibrary")}>
+                <FontAwesomeIcon
+                  icon={
+                    windows.gamesLibrary.fullscreen
+                      ? faWindowRestore
+                      : faWindowMaximize
+                  }
+                />
               </button>
             </div>
             <span>Games Library</span>
@@ -788,37 +990,42 @@ const PortXFolio = () => {
       )}
 
       {/* Target Practice Game Window */}
-      {windows.games.open && !windows.games.minimized && (
+      {windows.targetPractice.open && !windows.targetPractice.minimized && (
         <div
-          className={`window ${activeWindow === "games" ? "active-window" : ""}`}
+          className={`window ${
+            activeWindow === "targetPractice" ? "active-window" : ""
+          }`}
           style={{
-            width: windows.games.fullscreen ? "95vw" : "400px",
-            height: windows.games.fullscreen ? "90vh" : "400px",
-            zIndex: windows.games.zIndex,
-            left: windows.games.fullscreen ? 0 : windows.games.pos.x,
-            top: windows.games.fullscreen ? 0 : windows.games.pos.y,
+            width: windows.targetPractice.fullscreen ? "95vw" : "400px",
+            height: windows.targetPractice.fullscreen ? "90vh" : "400px",
+            zIndex: windows.targetPractice.zIndex,
+            left: windows.targetPractice.fullscreen ? 0 : windows.targetPractice.pos.x,
+            top: windows.targetPractice.fullscreen ? 0 : windows.targetPractice.pos.y,
           }}
-          onMouseDown={(e) => handleMouseDown(e, "games")}
+          onMouseDown={(e) => handleMouseDown(e, "targetPractice")}
         >
           <div className="window-title-bar">
             <div className="window-controls">
-              <button onClick={() => closeWindow("games")}>
+              <button onClick={() => closeWindow("targetPractice")}>
                 <FontAwesomeIcon icon={faTimes} />
               </button>
-              <button onClick={() => toggleMinimize("games")}>
+              <button onClick={() => toggleMinimize("targetPractice")}>
                 <FontAwesomeIcon icon={faMinus} />
               </button>
-              <button onClick={() => toggleFullscreen("games")}>
-                <FontAwesomeIcon icon={windows.games.fullscreen ? faWindowRestore : faWindowMaximize} />
+              <button onClick={() => toggleFullscreen("targetPractice")}>
+                <FontAwesomeIcon
+                  icon={
+                    windows.targetPractice.fullscreen
+                      ? faWindowRestore
+                      : faWindowMaximize
+                  }
+                />
               </button>
             </div>
             <span>Target Practice - Score: {gameScore}</span>
           </div>
-          <div 
-            className="window-content game-container"
-            onClick={hitTarget}
-          >
-            <div 
+          <div className="window-content game-container" onClick={hitTarget}>
+            <div
               className="game-target"
               style={{
                 left: `${gamePosition.x}%`,
@@ -834,86 +1041,100 @@ const PortXFolio = () => {
 
       {/* Minesweeper Game Window */}
       {windows.minesweeper.open && !windows.minesweeper.minimized && (
-        <div
-          className={`window ${activeWindow === "minesweeper" ? "active-window" : ""}`}
-          style={{
-            width: windows.minesweeper.fullscreen ? "95vw" : "500px",
-            height: windows.minesweeper.fullscreen ? "90vh" : "500px",
-            zIndex: windows.minesweeper.zIndex,
-            left: windows.minesweeper.fullscreen ? 0 : windows.minesweeper.pos.x,
-            top: windows.minesweeper.fullscreen ? 0 : windows.minesweeper.pos.y,
-          }}
-          onMouseDown={(e) => handleMouseDown(e, "minesweeper")}
-        >
-          <div className="window-title-bar">
-            <div className="window-controls">
-              <button onClick={() => closeWindow("minesweeper")}>
-                <FontAwesomeIcon icon={faTimes} />
-              </button>
-              <button onClick={() => toggleMinimize("minesweeper")}>
-                <FontAwesomeIcon icon={faMinus} />
-              </button>
-              <button onClick={() => toggleFullscreen("minesweeper")}>
-                <FontAwesomeIcon icon={windows.minesweeper.fullscreen ? faWindowRestore : faWindowMaximize} />
-              </button>
-            </div>
-            <span>Minesweeper {gameWon ? "🎉 You Won!" : gameLost ? "💥 Game Over!" : ""}</span>
-          </div>
-          <div className="window-content">
-            <div className="minesweeper-container">
-              <div className="minesweeper-controls">
-                <button onClick={initializeMinesweeper}>New Game</button>
-                <span>Mines: 15</span>
-              </div>
-              <div className="minesweeper-grid">
-                {minesweeperGrid.map((row, y) => (
-                  <div key={y} className="minesweeper-row">
-                    {row.map((cell, x) => (
-                      <div
-                        key={`${x}-${y}`}
-                        className={`minesweeper-cell ${
-                          revealedCells.includes(`${x},${y}`) ? "revealed" : ""
-                        } ${
-                          flaggedCells.includes(`${x},${y}`) ? "flagged" : ""
-                        }`}
-                        onClick={() => revealCell(x, y)}
-                        onContextMenu={(e) => toggleFlag(x, y, e)}
-                      >
-                        {revealedCells.includes(`${x},${y}`) ? (
-                          cell === "M" ? (
-                            "💣"
-                          ) : cell > 0 ? (
-                            cell
-                          ) : null
-                        ) : flaggedCells.includes(`${x},${y}`) ? (
-                          "🚩"
-                        ) : null}
-                      </div>
-                    ))}
-                  </div>
-                ))}
-              </div>
-              {gameLost && (
-                <div className="game-over-message">
-                  <p>You hit a mine! Game over.</p>
-                  <button onClick={initializeMinesweeper}>Play Again</button>
-                </div>
-              )}
-              {gameWon && (
-                <div className="game-won-message">
-                  <p>Congratulations! You cleared all mines!</p>
-                  <button onClick={initializeMinesweeper}>Play Again</button>
-                </div>
-              )}
-            </div>
-          </div>
+  <div
+    className={`window ${
+      activeWindow === "minesweeper" ? "active-window" : ""
+    }`}
+    style={{
+      width: windows.minesweeper.fullscreen ? "95vw" : "500px",
+      height: windows.minesweeper.fullscreen ? "90vh" : "500px",
+      zIndex: windows.minesweeper.zIndex,
+      left: windows.minesweeper.fullscreen ? 0 : windows.minesweeper.pos.x,
+      top: windows.minesweeper.fullscreen ? 0 : windows.minesweeper.pos.y,
+    }}
+    onMouseDown={(e) => handleMouseDown(e, "minesweeper")}
+  >
+    <div className="window-title-bar">
+      <div className="window-controls">
+        <button onClick={() => closeWindow("minesweeper")}>
+          <FontAwesomeIcon icon={faTimes} />
+        </button>
+        <button onClick={() => toggleMinimize("minesweeper")}>
+          <FontAwesomeIcon icon={faMinus} />
+        </button>
+        <button onClick={() => toggleFullscreen("minesweeper")}>
+          <FontAwesomeIcon
+            icon={
+              windows.minesweeper.fullscreen
+                ? faWindowRestore
+                : faWindowMaximize
+            }
+          />
+        </button>
+      </div>
+      <span>
+        Minesweeper{" "}
+        {gameWon ? "🎉 You Won!" : gameLost ? "💥 Game Over!" : ""}
+      </span>
+    </div>
+    <div className="window-content">
+      <div className="minesweeper-container">
+        <div className="minesweeper-controls">
+          <button onClick={initializeMinesweeper}>New Game</button>
+          <span>Mines: 15</span>
         </div>
-      )}
+        <div className="minesweeper-grid">
+          {minesweeperGrid.map((row, y) => (
+            <div key={y} className="minesweeper-row">
+              {row.map((cell, x) => (
+                <div
+                  key={`${x}-${y}`}
+                  className={`minesweeper-cell ${
+                    revealedCells.includes(`${x},${y}`) ? "revealed" : ""
+                  } ${
+                    flaggedCells.includes(`${x},${y}`) ? "flagged" : ""
+                  }`}
+                  onClick={() => revealCell(x, y)}
+                  onContextMenu={(e) => toggleFlag(x, y, e)}
+                >
+                  {revealedCells.includes(`${x},${y}`)
+                    ? cell === "M"
+                      ? "💣"
+                      : cell > 0
+                      ? cell
+                      : null
+                    : flaggedCells.includes(`${x},${y}`)
+                    ? "🚩"
+                    : null}
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+        {gameLost && (
+          <div className="game-over-message">
+            <p>You hit a mine! Game over.</p>
+            <button onClick={initializeMinesweeper}>Play Again</button>
+          </div>
+        )}
+        {gameWon && (
+          <div className="game-won-message">
+            <p>Congratulations! You cleared all mines!</p>
+            <button onClick={initializeMinesweeper}>Play Again</button>
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+)}
+
 
       {/* Snake Game Window */}
       {windows.snake.open && !windows.snake.minimized && (
         <div
-          className={`window ${activeWindow === "snake" ? "active-window" : ""}`}
+          className={`window ${
+            activeWindow === "snake" ? "active-window" : ""
+          }`}
           style={{
             width: windows.snake.fullscreen ? "95vw" : "500px",
             height: windows.snake.fullscreen ? "90vh" : "500px",
@@ -922,7 +1143,7 @@ const PortXFolio = () => {
             top: windows.snake.fullscreen ? 0 : windows.snake.pos.y,
           }}
           onMouseDown={(e) => handleMouseDown(e, "snake")}
-          >
+        >
           <div className="window-title-bar">
             <div className="window-controls">
               <button onClick={() => closeWindow("snake")}>
@@ -932,10 +1153,18 @@ const PortXFolio = () => {
                 <FontAwesomeIcon icon={faMinus} />
               </button>
               <button onClick={() => toggleFullscreen("snake")}>
-                <FontAwesomeIcon icon={windows.snake.fullscreen ? faWindowRestore : faWindowMaximize} />
+                <FontAwesomeIcon
+                  icon={
+                    windows.snake.fullscreen
+                      ? faWindowRestore
+                      : faWindowMaximize
+                  }
+                />
               </button>
             </div>
-            <span>Snake - Score: {gameScore} {snakeGameOver ? "💀 Game Over!" : ""}</span>
+            <span>
+              Snake - Score: {gameScore} {snakeGameOver ? "💀 Game Over!" : ""}
+            </span>
           </div>
           <div className="window-content">
             <div className="snake-game-container">
@@ -960,13 +1189,7 @@ const PortXFolio = () => {
                 <div className="snake-game-over">
                   <h2>Game Over!</h2>
                   <p>Final Score: {gameScore}</p>
-                  <button onClick={() => {
-                    setSnake([{ x: 10, y: 10 }]);
-                    setFood({ x: 5, y: 5 });
-                    setDirection("RIGHT");
-                    setSnakeGameOver(false);
-                    setGameScore(0);
-                  }}>
+                  <button onClick={initializeSnake}>
                     Play Again
                   </button>
                 </div>
@@ -979,7 +1202,9 @@ const PortXFolio = () => {
       {/* Tetris Game Window */}
       {windows.tetris.open && !windows.tetris.minimized && (
         <div
-          className={`window ${activeWindow === "tetris" ? "active-window" : ""}`}
+          className={`window ${
+            activeWindow === "tetris" ? "active-window" : ""
+          }`}
           style={{
             width: windows.tetris.fullscreen ? "95vw" : "400px",
             height: windows.tetris.fullscreen ? "90vh" : "600px",
@@ -998,10 +1223,19 @@ const PortXFolio = () => {
                 <FontAwesomeIcon icon={faMinus} />
               </button>
               <button onClick={() => toggleFullscreen("tetris")}>
-                <FontAwesomeIcon icon={windows.tetris.fullscreen ? faWindowRestore : faWindowMaximize} />
+                <FontAwesomeIcon
+                  icon={
+                    windows.tetris.fullscreen
+                      ? faWindowRestore
+                      : faWindowMaximize
+                  }
+                />
               </button>
             </div>
-            <span>Tetris - Score: {tetrisScore} {tetrisGameOver ? "💀 Game Over!" : ""}</span>
+            <span>
+              Tetris - Score: {tetrisScore}{" "}
+              {tetrisGameOver ? "💀 Game Over!" : ""}
+            </span>
           </div>
           <div className="window-content">
             <div className="tetris-container">
@@ -1013,7 +1247,11 @@ const PortXFolio = () => {
                       let isCurrentPiece = false;
                       if (currentPiece) {
                         for (let py = 0; py < currentPiece.shape.length; py++) {
-                          for (let px = 0; px < currentPiece.shape[py].length; px++) {
+                          for (
+                            let px = 0;
+                            px < currentPiece.shape[py].length;
+                            px++
+                          ) {
                             if (
                               currentPiece.shape[py][px] !== 0 &&
                               y === currentPiece.pos.y + py &&
@@ -1024,7 +1262,7 @@ const PortXFolio = () => {
                           }
                         }
                       }
-                      
+
                       return (
                         <div
                           key={x}
@@ -1040,9 +1278,7 @@ const PortXFolio = () => {
               <div className="tetris-controls">
                 <p>Controls: Arrow keys to move, Up to rotate</p>
                 {tetrisGameOver && (
-                  <button onClick={initializeTetris}>
-                    Play Again
-                  </button>
+                  <button onClick={initializeTetris}>Play Again</button>
                 )}
               </div>
             </div>
@@ -1053,7 +1289,9 @@ const PortXFolio = () => {
       {/* Chess Game Window */}
       {windows.chess.open && !windows.chess.minimized && (
         <div
-          className={`window ${activeWindow === "chess" ? "active-window" : ""}`}
+          className={`window ${
+            activeWindow === "chess" ? "active-window" : ""
+          }`}
           style={{
             width: windows.chess.fullscreen ? "95vw" : "500px",
             height: windows.chess.fullscreen ? "90vh" : "500px",
@@ -1072,7 +1310,13 @@ const PortXFolio = () => {
                 <FontAwesomeIcon icon={faMinus} />
               </button>
               <button onClick={() => toggleFullscreen("chess")}>
-                <FontAwesomeIcon icon={windows.chess.fullscreen ? faWindowRestore : faWindowMaximize} />
+                <FontAwesomeIcon
+                  icon={
+                    windows.chess.fullscreen
+                      ? faWindowRestore
+                      : faWindowMaximize
+                  }
+                />
               </button>
             </div>
             <span>Chess</span>
@@ -1088,8 +1332,9 @@ const PortXFolio = () => {
                         className={`chess-cell ${
                           (x + y) % 2 === 0 ? "light" : "dark"
                         } ${
-                          selectedChessPiece?.row === y && selectedChessPiece?.col === x 
-                            ? "selected" 
+                          selectedChessPiece?.row === y &&
+                          selectedChessPiece?.col === x
+                            ? "selected"
                             : ""
                         }`}
                         onClick={() => handleChessClick(y, x)}
@@ -1115,7 +1360,9 @@ const PortXFolio = () => {
       {/* AI Assistant Window */}
       {windows.aiChat.open && !windows.aiChat.minimized && (
         <div
-          className={`window ${activeWindow === "aiChat" ? "active-window" : ""}`}
+          className={`window ${
+            activeWindow === "aiChat" ? "active-window" : ""
+          }`}
           style={{
             width: windows.aiChat.fullscreen ? "95vw" : "400px",
             height: windows.aiChat.fullscreen ? "90vh" : "500px",
@@ -1134,7 +1381,13 @@ const PortXFolio = () => {
                 <FontAwesomeIcon icon={faMinus} />
               </button>
               <button onClick={() => toggleFullscreen("aiChat")}>
-                <FontAwesomeIcon icon={windows.aiChat.fullscreen ? faWindowRestore : faWindowMaximize} />
+                <FontAwesomeIcon
+                  icon={
+                    windows.aiChat.fullscreen
+                      ? faWindowRestore
+                      : faWindowMaximize
+                  }
+                />
               </button>
             </div>
             <span>AI Assistant</span>
@@ -1180,7 +1433,9 @@ const PortXFolio = () => {
       {/* Spotify Window */}
       {windows.spotify.open && !windows.spotify.minimized && (
         <div
-          className={`window ${activeWindow === "spotify" ? "active-window" : ""}`}
+          className={`window ${
+            activeWindow === "spotify" ? "active-window" : ""
+          }`}
           style={{
             width: windows.spotify.fullscreen ? "95vw" : "400px",
             height: windows.spotify.fullscreen ? "90vh" : "500px",
@@ -1199,7 +1454,13 @@ const PortXFolio = () => {
                 <FontAwesomeIcon icon={faMinus} />
               </button>
               <button onClick={() => toggleFullscreen("spotify")}>
-                <FontAwesomeIcon icon={windows.spotify.fullscreen ? faWindowRestore : faWindowMaximize} />
+                <FontAwesomeIcon
+                  icon={
+                    windows.spotify.fullscreen
+                      ? faWindowRestore
+                      : faWindowMaximize
+                  }
+                />
               </button>
             </div>
             <span>Spotify Player</span>
@@ -1214,8 +1475,11 @@ const PortXFolio = () => {
               className="spotify-embed"
             ></iframe>
             <div className="spotify-info">
-              <h3>Rafi  Coding Playlist</h3>
-              <p>A mix of electronic and ambient tracks for focused development sessions.</p>
+              <h3>Rafi Coding Playlist</h3>
+              <p>
+                A mix of electronic and ambient tracks for focused development
+                sessions.
+              </p>
             </div>
           </div>
         </div>
@@ -1223,43 +1487,139 @@ const PortXFolio = () => {
 
       {/* Taskbar */}
       <div className="taskbar">
-        <div className="start-button" onClick={() => openWindow("profile")}>
+        <div
+          className="start-button"
+          onClick={() => setStartMenuOpen(!startMenuOpen)}
+        >
           <span>Start</span>
         </div>
-        <div className="taskbar-items">
-          {Object.entries(windows).map(([name, state]) => (
-            state.open && (
+        {startMenuOpen && (
+          <div className="start-menu active">
+            <div className="start-header">
+              <img
+                src="https://via.placeholder.com/150"
+                alt="Profile"
+                className="start-profile-pic"
+              />
+              <div>
+                <div className="start-name">Rafi Adnan</div>
+                <div className="start-skills">
+                  Full-Stack Developer | Game Designer
+                </div>
+              </div>
+            </div>
+            <div className="start-menu-items">
               <div
-                key={name}
-                className={`taskbar-item ${activeWindow === name ? "active" : ""}`}
+                className="start-menu-item"
                 onClick={() => {
-                  if (state.minimized) {
-                    toggleMinimize(name);
-                  }
-                  bringToFront(name);
+                  openWindow("profile");
+                  setStartMenuOpen(false);
                 }}
               >
-                <FontAwesomeIcon icon={
-                  name === "profile" ? faUser :
-                  name === "projects" ? faFolder :
-                  name === "spotify" ? faMusic :
-                  name === "games" || name === "minesweeper" || name === "snake" || name === "tetris" ? faGamepad :
-                  name === "chess" ? faChess :
-                  name === "aiChat" ? faRobot : faGlobe
-                } />
-                <span>
-                  {name === "minesweeper" ? "Minesweeper" :
-                   name === "snake" ? "Snake" :
-                   name === "tetris" ? "Tetris" :
-                   name === "chess" ? "Chess" :
-                   name.charAt(0).toUpperCase() + name.slice(1)}
-                </span>
+                <FontAwesomeIcon icon={faUser} />
+                <span>My Profile</span>
               </div>
-            )
-          ))}
+              <div
+                className="start-menu-item"
+                onClick={() => {
+                  openWindow("projects");
+                  setStartMenuOpen(false);
+                }}
+              >
+                <FontAwesomeIcon icon={faFolder} />
+                <span>Projects</span>
+              </div>
+              <div
+                className="start-menu-item"
+                onClick={() => {
+                  openWindow("gamesLibrary");
+                  setStartMenuOpen(false);
+                }}
+              >
+                <FontAwesomeIcon icon={faGamepad} />
+                <span>Games</span>
+              </div>
+              <div
+                className="start-menu-item"
+                onClick={() => {
+                  openWindow("spotify");
+                  setStartMenuOpen(false);
+                }}
+              >
+                <FontAwesomeIcon icon={faMusic} />
+                <span>Spotify</span>
+              </div>
+              <div
+                className="start-menu-item"
+                onClick={() => {
+                  openWindow("aiChat");
+                  setStartMenuOpen(false);
+                }}
+              >
+                <FontAwesomeIcon icon={faRobot} />
+                <span>AI Assistant</span>
+              </div>
+            </div>
+          </div>
+        )}
+        <div className="taskbar-items">
+          {Object.entries(windows).map(
+            ([name, state]) =>
+              state.open && (
+                <div
+                  key={name}
+                  className={`taskbar-item ${
+                    activeWindow === name ? "active" : ""
+                  }`}
+                  onClick={() => {
+                    if (state.minimized) {
+                      toggleMinimize(name);
+                    }
+                    bringToFront(name);
+                  }}
+                >
+                  <FontAwesomeIcon
+                    icon={
+                      name === "profile"
+                        ? faUser
+                        : name === "projects"
+                        ? faFolder
+                        : name === "spotify"
+                        ? faMusic
+                        : name === "gamesLibrary" ||
+                          name === "minesweeper" ||
+                          name === "snake" ||
+                          name === "tetris" ||
+                          name === "targetPractice"
+                        ? faGamepad
+                        : name === "chess"
+                        ? faChess
+                        : name === "aiChat"
+                        ? faRobot
+                        : faGlobe
+                    }
+                  />
+                  <span>
+                    {name === "minesweeper"
+                      ? "Minesweeper"
+                      : name === "snake"
+                      ? "Snake"
+                      : name === "tetris"
+                      ? "Tetris"
+                      : name === "chess"
+                      ? "Chess"
+                      : name === "targetPractice"
+                      ? "Target Practice"
+                      : name === "gamesLibrary"
+                      ? "Games"
+                      : name.charAt(0).toUpperCase() + name.slice(1)}
+                  </span>
+                </div>
+              )
+          )}
         </div>
         <div className="clock">
-          {time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+          {time.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
           <br />
           {time.toLocaleDateString()}
         </div>
@@ -1270,12 +1630,12 @@ const PortXFolio = () => {
   // Helper function for chess symbols
   function getChessSymbol(type, color) {
     const symbols = {
-      king: color === 'white' ? '♔' : '♚',
-      queen: color === 'white' ? '♕' : '♛',
-      rook: color === 'white' ? '♖' : '♜',
-      bishop: color === 'white' ? '♗' : '♝',
-      knight: color === 'white' ? '♘' : '♞',
-      pawn: color === 'white' ? '♙' : '♟'
+      king: color === "white" ? "♔" : "♚",
+      queen: color === "white" ? "♕" : "♛",
+      rook: color === "white" ? "♖" : "♜",
+      bishop: color === "white" ? "♗" : "♝",
+      knight: color === "white" ? "♘" : "♞",
+      pawn: color === "white" ? "♙" : "♟",
     };
     return symbols[type];
   }
