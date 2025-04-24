@@ -598,7 +598,7 @@ const PortXFolio = () => {
       title: "Target Practice",
       description: "Click the moving target to score points",
       icon: faGamepad,
-      action: () => openWindow("games"),
+      action: () => openWindow("targetpractice"),
     },
   ];
 
