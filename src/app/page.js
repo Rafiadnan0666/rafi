@@ -2,7 +2,7 @@
 
 import { Analytics } from "@vercel/analytics/react";
 import House from "./House/House";
-import Projects from "./Projects/page";
+import Projects from "./converter/page";
 import Head from "next/head";
 import Script from "next/script";
 

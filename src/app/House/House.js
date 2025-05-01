@@ -178,7 +178,7 @@ const PortXFolio = () => {
             break;
         }
 
-        // Wall collision
+     
         if (head.x < 0 || head.x >= 20 || head.y < 0 || head.y >= 20) {
           setSnakeGameOver(true);
           return prevSnake;
@@ -379,7 +379,7 @@ const PortXFolio = () => {
       .map(() => Array(10).fill(0));
     let mines = 15;
 
-    // Place mines
+
     while (mines > 0) {
       const x = Math.floor(Math.random() * 10);
       const y = Math.floor(Math.random() * 10);
@@ -390,7 +390,6 @@ const PortXFolio = () => {
       }
     }
 
-    // Calculate numbers
     for (let y = 0; y < 10; y++) {
       for (let x = 0; x < 10; x++) {
         if (grid[y][x] === "M") continue;
@@ -436,7 +435,7 @@ const PortXFolio = () => {
       return;
     }
 
-    // Auto-reveal empty cells
+
     if (minesweeperGrid[y][x] === 0) {
       for (let dy = -1; dy <= 1; dy++) {
         for (let dx = -1; dx <= 1; dx++) {
@@ -453,7 +452,6 @@ const PortXFolio = () => {
       }
     }
 
-    // Check win condition
     let unrevealed = 0;
     for (let y = 0; y < 10; y++) {
       for (let x = 0; x < 10; x++) {
@@ -479,7 +477,7 @@ const PortXFolio = () => {
     }
   };
 
-  // Tetris functions
+
   const initializeTetris = () => {
     const emptyGrid = Array(20)
       .fill()
@@ -496,27 +494,27 @@ const PortXFolio = () => {
       [
         [1, 1],
         [1, 1],
-      ], // O
+      ], 
       [
         [1, 1, 1],
         [0, 1, 0],
-      ], // T
+      ], 
       [
         [1, 1, 1],
         [1, 0, 0],
-      ], // L
+      ], 
       [
         [1, 1, 1],
         [0, 0, 1],
-      ], // J
+      ], 
       [
         [0, 1, 1],
         [1, 1, 0],
-      ], // S
+      ], 
       [
         [1, 1, 0],
         [0, 1, 1],
-      ], // Z
+      ],
     ];
 
     const newPiece = {
@@ -539,7 +537,7 @@ const PortXFolio = () => {
         pos: { x: newX, y: newY },
       });
     } else if (y > 0) {
-      // Hit bottom - lock piece
+
       lockTetrisPiece();
     }
   };
@@ -621,7 +619,7 @@ const PortXFolio = () => {
     spawnNewTetrisPiece();
   };
 
-  // Chess functions
+
   const initializeChess = () => {
     const board = Array(8)
       .fill()
@@ -633,7 +631,6 @@ const PortXFolio = () => {
       board[6][i] = { type: "pawn", color: "white" };
     }
 
-    // Set up other pieces
     const pieces = [
       "rook",
       "knight",
@@ -662,7 +659,6 @@ const PortXFolio = () => {
       const { row: fromRow, col: fromCol } = selectedChessPiece;
       const piece = chessBoard[fromRow][fromCol];
 
-      // Simple move validation (for demo purposes)
       const newBoard = [...chessBoard];
       newBoard[row][col] = piece;
       newBoard[fromRow][fromCol] = null;
@@ -672,14 +668,14 @@ const PortXFolio = () => {
     }
   };
 
-  // AI Chat
+
   const handleAiSubmit = async (e) => {
     e.preventDefault();
     if (!userMessage.trim()) return;
 
     setIsThinking(true);
 
-    // Simulate AI response
+
     setTimeout(() => {
       const responses = [
         "I'm an AI assistant in this Windows XP portfolio. How can I help you?",
@@ -732,6 +728,14 @@ const PortXFolio = () => {
       title: "End",
       description:
         "A sinister coliseum where warriors fight for false freedom.",
+      image:
+        "https://img.itch.zone/aW1nLzE5NjM4NTM0LmpwZw==/315x250%23c/YRDn7Q.jpg",
+      link: "https://gregrsea-975.itch.io/end",
+    },
+    {
+      title: "Currency Converter",
+      description:
+        "A web that you can convert any currency",
       image:
         "https://img.itch.zone/aW1nLzE5NjM4NTM0LmpwZw==/315x250%23c/YRDn7Q.jpg",
       link: "https://gregrsea-975.itch.io/end",
@@ -1314,7 +1318,6 @@ const PortXFolio = () => {
         </div>
       )}
 
-      {/* Chess Game Window */}
       {windows.chess.open && !windows.chess.minimized && (
         <div
           className={`window ${
