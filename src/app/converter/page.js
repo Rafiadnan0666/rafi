@@ -64,6 +64,7 @@ export default class Converter extends Component {
     return (
       <div className=" min-h-screen bg-gradient-to-br from-blue-100 to-white p-8">
         <div className=" max-w-xl mx-auto bg-white shadow-lg rounded-2xl p-6 space-y-6">
+          <title>Currency Converter</title>
           <h1 className=" text-3xl font-bold text-center text-blue-700">Currency Converter</h1>
           <div className=" space-y-4">
             <div>

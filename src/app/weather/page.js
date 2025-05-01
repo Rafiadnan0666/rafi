@@ -73,7 +73,7 @@ export default class Weather extends Component {
     return (
       <div style={{ padding: "2rem", fontFamily: "sans-serif", color: "black", background: "#f2f2f2", minHeight: "100vh" }}>
         <h1 style={{ fontSize: "2rem", marginBottom: "1rem" }}>☀️ Weather in Your City</h1>
-
+        <title>Weather in Your City</title>
         <form onSubmit={this.handleSubmit} style={{ marginBottom: "1rem" }}>
           <input
             type="text"

@@ -714,7 +714,7 @@ const PortXFolio = () => {
       title: "JawaraDM Landing Page",
       description:
         "Modern responsive landing page built with React and Tailwind CSS.",
-      image: "https://jawaradm.com/",
+      image: "https://placehold.co/600x400/EEE/31343C",
       link: "https://jawaradm.com/",
     },
     {
@@ -738,6 +738,22 @@ const PortXFolio = () => {
         "A web that you can convert any currency",
       image:
         "https://img.itch.zone/aW1nLzE5NjM4NTM0LmpwZw==/315x250%23c/YRDn7Q.jpg",
+      link: "https://rafiadnan.my.id/converter",
+    },
+    {
+      title: "Url To Qr Converter",
+      description:
+        "A web that you can convert any Url To Qr",
+      image:
+        "https://placehold.co/600x400/EEE/31343C",
+      link: "https://gregrsea-975.itch.io/end",
+    },
+    {
+      title: "Weather",
+      description:
+        "A web that you can see how it's the weather",
+      image:
+        "https://placehold.co/600x400/EEE/31343C",
       link: "https://gregrsea-975.itch.io/end",
     },
   ];
