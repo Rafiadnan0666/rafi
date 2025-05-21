@@ -1,0 +1,301 @@
+/* Windows XP Theme */
+.windows-xp-bg {
+    background-color: #018281;
+    background-image: url('https://i.redd.it/lmsj2hl64mw71.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+  
+  /* Desktop Icons */
+  .desktop-icons {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+  
+  .desktop-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80px;
+    text-align: center;
+    cursor: pointer;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+    transition: all 0.2s ease;
+  }
+  
+  .desktop-icon:hover {
+    background-color: rgba(49, 106, 197, 0.3);
+    border-radius: 3px;
+  }
+  
+  .desktop-icon span {
+    margin-top: 5px;
+    font-size: 12px;
+  }
+  
+  /* Windows */
+  .window {
+    background-color: #ece9d8;
+    border: 2px solid #003366;
+    border-radius: 6px 6px 0 0;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  
+  .window.active-window {
+    box-shadow: 0 0 10px 2px rgba(0, 132, 255, 0.5);
+  }
+  
+  .window-title-bar {
+    background: linear-gradient(to right, #0058b8, #003366);
+    color: white;
+    padding: 5px 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: move;
+    user-select: none;
+  }
+  
+  .window-controls {
+    display: flex;
+    gap: 5px;
+  }
+  
+  .window-controls button {
+    color: white !important;
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    padding: 0;
+  }
+  
+  .window-content {
+    padding: 10px;
+    background-color: white;
+    height: calc(100% - 30px);
+    overflow-y: auto;
+  }
+  
+  /* XP Card */
+  .xp-card {
+    border: 1px solid #a0a0a0;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+  }
+  
+  .xp-title {
+    color: #003366;
+    border-bottom: 1px solid #003366;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+  }
+  
+  .profile-content {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+  
+  .profile-pic {
+    border: 2px solid #003366;
+    border-radius: 4px;
+  }
+  
+  .skills-section {
+    margin-top: 15px;
+  }
+  
+  .skills-section h3 {
+    color: #003366;
+    margin-bottom: 10px;
+  }
+  
+  .skills-list {
+    padding-left: 20px;
+    color: #333;
+  }
+  
+  /* Projects Grid */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+  }
+  
+  .project-card {
+    transition: transform 0.3s ease;
+    border: 1px solid #a0a0a0;
+  }
+  
+  .project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  }
+  
+  .project-image {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .project-title {
+    color: #003366;
+    font-weight: bold;
+  }
+  
+  .project-desc {
+    color: #555;
+    font-size: 0.9rem;
+  }
+  
+  .project-link {
+    color: #0058b8;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    margin-top: 10px;
+  }
+  
+  .project-link:hover {
+    text-decoration: underline;
+  }
+  
+  /* Taskbar */
+  .taskbar {
+    background: linear-gradient(to bottom, #2c2f8f, #1e1e6a);
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    color: white;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.3);
+    z-index: 1000;
+  }
+  
+  .start-button {
+    background: linear-gradient(to bottom, #3a6ea5, #1e4e8c);
+    padding: 5px 15px;
+    border-radius: 3px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: bold;
+    border: 1px solid #4a8bd4;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.2);
+  }
+  
+  .start-button:hover {
+    background: linear-gradient(to bottom, #4a8bd4, #2a5e9c);
+  }
+  
+  .taskbar-items {
+    display: flex;
+    gap: 5px;
+    flex-grow: 1;
+    justify-content: center;
+  }
+  
+  .taskbar-item {
+    background: rgba(255,255,255,0.1);
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+  }
+  
+  .taskbar-item.active {
+    background: rgba(255,255,255,0.3);
+  }
+  
+  .taskbar-item:hover {
+    background: rgba(255,255,255,0.2);
+  }
+  
+  .clock {
+    padding: 5px 10px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 3px;
+    font-size: 0.9rem;
+  }
+  
+  /* Game */
+  .game-container {
+    position: relative;
+    height: 100%;
+    background-color: #018281;
+    overflow: hidden;
+  }
+  
+  .game-target {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: red;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    transition: all 0.1s ease;
+  }
+  
+  .game-target:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+  
+  .game-instructions {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px black;
+  }
+  
+  /* Animations */
+  @keyframes windowOpen {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  .window {
+    animation: windowOpen 0.2s ease-out;
+  }
+  
+  @keyframes clickEffect {
+    0% {
+      transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+      transform: translate(-50%, -50%) scale(1.3);
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+  
+  .game-target:active {
+    animation: clickEffect 0.2s ease;
+  }
